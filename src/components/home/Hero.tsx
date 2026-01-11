@@ -70,7 +70,7 @@ const Hero = () => {
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/80 backdrop-blur-sm border border-border shadow-soft mb-8">
             <Sparkles className="w-4 h-4 text-accent" />
             <span className="text-sm font-semibold">
-              360° Business Growth Solutions
+              360° Business Growth Solutionsss
             </span>
           </div>
 
