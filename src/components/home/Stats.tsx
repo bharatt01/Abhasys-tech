@@ -69,7 +69,8 @@ const Stats = () => {
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-20 bg-secondary/50">
+    <section className="py-20 bg-white/95">
+
       <div className="container mx-auto px-4" ref={containerRef}>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
           {stats.map((stat, index) => (

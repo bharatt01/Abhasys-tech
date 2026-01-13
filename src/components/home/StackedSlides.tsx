@@ -1,7 +1,8 @@
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import { useRef } from "react";
 
-const NAVBAR_HEIGHT = 80;
+const NAVBAR_HEIGHT = 56;
+
 
 const ScrollOverlapSlides = (): JSX.Element => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -64,7 +65,8 @@ const ScrollOverlapSlides = (): JSX.Element => {
   );
 
   return (
-    <div ref={ref} className="bg-white">
+   <div ref={ref} className="bg-white -mt-16">
+
       {/* ✅ White buffer BEFORE sticky */}
       <div style={{ height: NAVBAR_HEIGHT }} />
 

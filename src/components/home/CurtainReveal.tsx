@@ -1,7 +1,8 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
-const NAVBAR_HEIGHT = 80;
+const NAVBAR_HEIGHT = 56;
+
 
 const CurtainReveal = (): JSX.Element => {
   const ref = useRef<HTMLDivElement | null>(null);
@@ -22,7 +23,8 @@ const CurtainReveal = (): JSX.Element => {
   const textScale = useTransform(scrollYProgress, [0.1, 0.5], [0.9, 1]);
 
   return (
-    <div ref={ref} className="bg-white">
+ <div ref={ref} className="bg-white -mt-12">
+
       {/* ✅ White buffer BEFORE sticky */}
       <div style={{ height: NAVBAR_HEIGHT }} />
 

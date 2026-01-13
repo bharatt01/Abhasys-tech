@@ -1,7 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 import {
   Code2,
   Smartphone,
@@ -9,263 +8,224 @@ import {
   Search,
   BarChart3,
   Share2,
-  Megaphone,
-  Users,
+  Palette,
+  Layout,
   Lightbulb,
 } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
-/* -------------------- DATA -------------------- */
+const sections = [
+  /* ---------------- TECHNICAL ---------------- */
+  {
+    label: "Technical Services",
+    title: "Built for Speed. Built to Scale.",
+    accent: "bg-black",
+    services: [
+      {
+        icon: Code2,
+        title: "Web Development",
+        description:
+          "High-performance websites engineered for clarity, speed, and scalability.",
+        why: "Clean architecture = faster load times & better conversions.",
+        tags: ["React", "Next.js", "APIs"],
+        image: "https://picsum.photos/600/500?random=11",
+      },
+      {
+        icon: Smartphone,
+        title: "App Development",
+        description:
+          "Cross-platform mobile apps with native performance and UX.",
+        why: "One codebase. Faster releases. Lower maintenance.",
+        tags: ["React Native", "Flutter", "iOS"],
+        image: "https://picsum.photos/600/500?random=12",
+      },
+      {
+        icon: Server,
+        title: "SaaS Maintenance",
+        description:
+          "We keep your product stable, secure, and continuously improving.",
+        why: "Small optimizations compound into long-term growth.",
+        tags: ["Monitoring", "Scaling", "Security"],
+        image: "https://picsum.photos/600/500?random=13",
+      },
+    ],
+  },
 
-const technicalServices = [
+  /* ---------------- DIGITAL ---------------- */
   {
-    icon: Code2,
-    title: "Web Development",
-    description:
-      "Modern, responsive websites built with React, Next.js, and scalable architecture.",
-    features: ["React / Next.js", "TypeScript", "Headless CMS", "API Integration"],
+    label: "Digital Growth",
+    title: "Growth Backed by Data, Not Guesswork.",
+    accent: "bg-[#FF2E00]",
+    services: [
+      {
+        icon: Search,
+        title: "SEO Optimization",
+        description:
+          "Search strategies focused on sustainable organic growth.",
+        why: "Traffic that compounds month after month.",
+        tags: ["SEO", "Content", "Local"],
+        image: "https://picsum.photos/600/500?random=21",
+      },
+      {
+        icon: BarChart3,
+        title: "Performance Marketing",
+        description:
+          "High-ROI campaigns across Google, Meta, and LinkedIn.",
+        why: "Every rupee tracked, optimized, and justified.",
+        tags: ["Google Ads", "Meta", "Analytics"],
+        image: "https://picsum.photos/600/500?random=22",
+      },
+      {
+        icon: Share2,
+        title: "Social Media",
+        description:
+          "Brand presence built through consistency and storytelling.",
+        why: "Trust is built before the first click.",
+        tags: ["Content", "Community", "Branding"],
+        image: "https://picsum.photos/600/500?random=23",
+      },
+    ],
   },
+
+  /* ---------------- NEW SECTION ---------------- */
   {
-    icon: Smartphone,
-    title: "App Development",
-    description:
-      "Native and cross-platform mobile apps with smooth performance and UX.",
-    features: ["React Native", "Flutter", "iOS / Android", "Store Launch"],
-  },
-  {
-    icon: Server,
-    title: "SaaS Maintenance",
-    description:
-      "Continuous monitoring, updates, and performance improvements.",
-    features: ["24/7 Monitoring", "Bug Fixes", "Feature Updates", "Optimization"],
+    label: "Brand & Experience",
+    title: "Design That Builds Trust Instantly.",
+    accent: "bg-[#1D4ED8]",
+    services: [
+      {
+        icon: Palette,
+        title: "Brand Identity",
+        description:
+          "Visual systems that make brands instantly recognizable.",
+        why: "Strong brands reduce friction and increase recall.",
+        tags: ["Branding", "Identity", "Guidelines"],
+        image: "https://picsum.photos/600/500?random=31",
+      },
+      {
+        icon: Layout,
+        title: "UI / UX Design",
+        description:
+          "Interfaces designed for clarity, usability, and conversion.",
+        why: "Good UX removes hesitation and builds confidence.",
+        tags: ["UX", "UI", "Wireframes"],
+        image: "https://picsum.photos/600/500?random=32",
+      },
+      {
+        icon: Lightbulb,
+        title: "Creative Direction",
+        description:
+          "Consistent creative vision across all digital touchpoints.",
+        why: "Consistency builds credibility over time.",
+        tags: ["Design Systems", "Creatives", "Direction"],
+        image: "https://picsum.photos/600/500?random=33",
+      },
+    ],
   },
 ];
-
-const digitalServices = [
-  {
-    icon: Search,
-    title: "SEO Optimization",
-    description:
-      "Organic growth strategies that increase visibility and rankings.",
-    features: ["Technical SEO", "Content Strategy", "Link Building", "Local SEO"],
-  },
-  {
-    icon: BarChart3,
-    title: "Performance Marketing",
-    description:
-      "High-ROI ad campaigns across Google, Meta, and LinkedIn.",
-    features: ["Google Ads", "Meta Ads", "LinkedIn Ads", "Tracking"],
-  },
-  {
-    icon: Share2,
-    title: "Social Media Management",
-    description:
-      "Brand storytelling and audience engagement across platforms.",
-    features: ["Content Creation", "Community", "Analytics", "Influencers"],
-  },
-];
-
-const physicalServices = [
-  {
-    icon: Megaphone,
-    title: "Offline Branding",
-    description:
-      "Visual identity systems for physical brand touchpoints.",
-    features: ["Logo Design", "Brand System", "Packaging", "Signage"],
-  },
-  {
-    icon: Users,
-    title: "BTL Activations",
-    description:
-      "Experiential marketing campaigns with real-world impact.",
-    features: ["Events", "Promotions", "Experiential", "Sampling"],
-  },
-  {
-    icon: Lightbulb,
-    title: "Physical Consultancy",
-    description:
-      "Strategic consulting for retail, offices, and customer journeys.",
-    features: ["Retail Design", "CX Strategy", "Space Planning", "Visual Merch."],
-  },
-];
-
-/* -------------------- COMPONENTS -------------------- */
-
-const SectionHeader = ({ badge, title, description, color }: any) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5 }}
-      className="text-center max-w-2xl mx-auto mb-16"
-    >
-      <span
-        className={`inline-block px-5 py-2 rounded-full text-white text-sm font-semibold mb-5`}
-        style={{ backgroundColor: color }}
-      >
-        {badge}
-      </span>
-
-      <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4">
-        {title}
-      </h2>
-
-      <p className="text-slate-600 text-lg">{description}</p>
-    </motion.div>
-  );
-};
-
-const ServiceCard = ({ service, index, bg, iconBg }: any) => {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group"
-    >
-      <div
-        className="h-full p-8 rounded-3xl border border-black/5
-        hover:-translate-y-2 hover:shadow-2xl transition-all duration-300"
-        style={{ backgroundColor: bg }}
-      >
-        <div
-          className="w-14 h-14 rounded-2xl flex items-center justify-center mb-6
-          shadow-md group-hover:scale-110 transition"
-          style={{ backgroundColor: iconBg }}
-        >
-          <service.icon className="w-6 h-6 text-white" />
-        </div>
-
-        <h3 className="text-xl font-bold text-slate-900 mb-3">
-          {service.title}
-        </h3>
-
-        <p className="text-slate-800 mb-6 leading-relaxed">
-          {service.description}
-        </p>
-
-        <div className="flex flex-wrap gap-2">
-          {service.features.map((feature: string) => (
-            <span
-              key={feature}
-              className="px-3 py-1.5 rounded-full bg-white text-xs font-medium text-slate-800 border border-black/10"
-            >
-              {feature}
-            </span>
-          ))}
-        </div>
-      </div>
-    </motion.div>
-  );
-};
-
-/* -------------------- PAGE -------------------- */
 
 const Services = () => {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="bg-white">
       <Navbar />
 
-      <main className="pt-32 pb-24">
-        {/* HERO */}
-        <section className="container mx-auto px-4 mb-28">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto"
-          >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 text-slate-900">
-              Our <span className="text-pink-500">Services</span>
-            </h1>
-            <p className="text-xl text-slate-600">
-              End-to-end technology, marketing, and branding services that help
-              businesses scale.
-            </p>
-          </motion.div>
-        </section>
+      {/* HERO */}
+      <section className="pt-32 pb-24 container mx-auto px-4 text-center">
+        <h1 className="text-5xl md:text-6xl font-extrabold text-black">
+          Services Designed
+          <br />
+          <span className="text-neutral-500">to Drive Impact.</span>
+        </h1>
 
-        {/* TECHNICAL */}
-        <section className="py-20">
+        <p className="mt-6 text-lg text-neutral-600 max-w-2xl mx-auto">
+          We don’t just deliver services — we build systems that grow businesses.
+        </p>
+      </section>
+
+      {/* SECTIONS */}
+      {sections.map((section) => (
+        <section key={section.label} className="py-28">
           <div className="container mx-auto px-4">
-            <SectionHeader
-              badge="Technical Services"
-              title="Build with Modern Technology"
-              description="Scalable and future-ready digital products."
-              color="#38BDF8"
-            />
+            <div className="max-w-3xl mb-20">
+              <span
+                className={`inline-block px-4 py-2 text-sm font-bold text-white ${section.accent}`}
+              >
+                {section.label}
+              </span>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {technicalServices.map((service, index) => (
-                <ServiceCard
-                  key={service.title}
-                  service={service}
-                  index={index}
-                  bg="#E0F2FE"
-                  iconBg="#38BDF8"
-                />
-              ))}
+              <h2 className="mt-6 text-4xl md:text-5xl font-extrabold text-black">
+                {section.title}
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {section.services.map((service, index) => {
+                const Icon = service.icon;
+
+                return (
+                  <motion.div
+                    key={service.title}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: index * 0.1 }}
+                    className="group relative border-2 border-black overflow-hidden"
+                  >
+                    {/* Image */}
+                    <div className="absolute inset-0">
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full object-cover opacity-0 scale-105
+                        group-hover:opacity-100 group-hover:scale-100
+                        transition-all duration-500"
+                      />
+                      <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="relative z-10 p-8 bg-white group-hover:bg-transparent transition">
+                      <div className={`absolute top-0 left-0 w-full h-2 ${section.accent}`} />
+
+                      <div className={`w-14 h-14 ${section.accent} flex items-center justify-center mb-6`}>
+                        <Icon className="w-6 h-6 text-white" />
+                      </div>
+
+                      <h3 className="text-2xl font-bold mb-4 text-black group-hover:text-white">
+                        {service.title}
+                      </h3>
+
+                      <p className="text-neutral-600 group-hover:text-neutral-200 mb-6">
+                        {service.description}
+                      </p>
+
+                      <p className="text-sm font-semibold mb-6 text-black group-hover:text-white">
+                        Why this works →
+                        <span className="block font-normal mt-1 opacity-80">
+                          {service.why}
+                        </span>
+                      </p>
+
+                      <div className="flex flex-wrap gap-2">
+                        {service.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-3 py-1 text-sm font-bold bg-black text-white
+                            group-hover:bg-white group-hover:text-black transition"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
           </div>
         </section>
-
-        {/* DIGITAL */}
-        <section className="py-20 bg-pink-50">
-          <div className="container mx-auto px-4">
-            <SectionHeader
-              badge="Digital Growth"
-              title="Grow Your Online Presence"
-              description="Data-driven marketing that delivers measurable results."
-              color="#EC4899"
-            />
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {digitalServices.map((service, index) => (
-                <ServiceCard
-                  key={service.title}
-                  service={service}
-                  index={index}
-                  bg="#FCE7F3"
-                  iconBg="#EC4899"
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* PHYSICAL */}
-        <section className="py-20">
-          <div className="container mx-auto px-4">
-            <SectionHeader
-              badge="Physical Marketing"
-              title="Strengthen Your Physical Presence"
-              description="Offline branding and real-world engagement strategies."
-              color="#F59E0B"
-            />
-
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-              {physicalServices.map((service, index) => (
-                <ServiceCard
-                  key={service.title}
-                  service={service}
-                  index={index}
-                  bg="#FEF3C7"
-                  iconBg="#F59E0B"
-                />
-              ))}
-            </div>
-          </div>
-        </section>
-      </main>
+      ))}
 
       <Footer />
     </div>
@@ -273,4 +233,3 @@ const Services = () => {
 };
 
 export default Services;
- 

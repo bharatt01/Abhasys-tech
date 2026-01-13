@@ -9,6 +9,11 @@ import CTA from "@/components/home/CTA";
 import CenterExpandReveal from "@/components/home/CenterExpandReveal";
 import CurtainReveal from "@/components/home/CurtainReveal";
 import DepthZoomReveal from "@/components/home/DepthZoomReveal";
+import CapabilitiesShowcase from "@/components/home/MomentumSection";
+import FocusServices from "@/components/home/MomentumSection";
+import MomentumSection from "@/components/home/MomentumSection";
+import SelectedWork from "@/components/home/SelectedWork";
+import ImpactProcess from "@/components/home/ImpactProcess";
 
 const Index = () => {
   return (
@@ -16,18 +21,24 @@ const Index = () => {
       <Navbar />
       <main>
         <Hero />
+        <div className="relative z-20">
         <Stats />
+        <SelectedWork />
         <ScrollOverlapSlides/>
 
         <TrustBar />
+        <ImpactProcess />
         <CenterExpandReveal />
         
         <ServicesPreview />
         <CurtainReveal />
-        <DepthZoomReveal />
+        <MomentumSection   />
+        
         <CTA />
+        </div>
       </main>
       <Footer />
+      
     </div>
   );
 };

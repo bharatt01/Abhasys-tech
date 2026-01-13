@@ -17,7 +17,7 @@ import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
 import ParallaxSection from "@/components/ui/ParallaxSection";
 import ValuesPop from "@/components/home/Values";
-
+import DepthZoomReveal from "@/components/home/DepthZoomReveal";
 const timelineEvents = [
   {
     year: "2018",
@@ -328,6 +328,7 @@ const About = () => {
           </div>
         </section>
 
+<DepthZoomReveal />
        {/* Values */}
        <ValuesPop />
 
