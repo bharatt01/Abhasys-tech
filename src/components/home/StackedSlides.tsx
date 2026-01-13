@@ -3,7 +3,6 @@ import { useRef } from "react";
 
 const NAVBAR_HEIGHT = 56;
 
-
 const ScrollOverlapSlides = (): JSX.Element => {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -37,23 +36,28 @@ const ScrollOverlapSlides = (): JSX.Element => {
     image,
     button,
   }: any) => (
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center w-full">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-12 items-center w-full">
+      {/* TEXT */}
       <div className="max-w-xl text-white">
-        <span className="uppercase tracking-widest text-sm opacity-80">
+        <span className="uppercase tracking-widest text-xs lg:text-sm opacity-80">
           {subtitle}
         </span>
-        <h2 className="text-5xl font-extrabold mt-5 leading-tight">
+
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold mt-3 lg:mt-5 leading-tight">
           {title}
         </h2>
-        <div className="mt-6 text-lg opacity-90 leading-relaxed">
+
+        <div className="mt-4 lg:mt-6 text-base lg:text-lg opacity-90 leading-relaxed">
           {content}
         </div>
-        <button className="mt-8 px-7 py-3 rounded-full bg-white text-black font-semibold">
+
+        <button className="mt-6 lg:mt-8 px-6 lg:px-7 py-3 rounded-full bg-white text-black font-semibold text-sm lg:text-base">
           {button}
         </button>
       </div>
 
-      <div className="relative w-full h-[420px] rounded-2xl overflow-hidden">
+      {/* IMAGE */}
+      <div className="relative w-full h-[200px] sm:h-[280px] lg:h-[420px] rounded-2xl overflow-hidden">
         <img
           src={image}
           alt={title}
@@ -65,12 +69,12 @@ const ScrollOverlapSlides = (): JSX.Element => {
   );
 
   return (
-   <div ref={ref} className="bg-white -mt-16">
-
-      {/* ✅ White buffer BEFORE sticky */}
+    <div ref={ref} className="bg-white">
+      {/* NAVBAR BUFFER */}
       <div style={{ height: NAVBAR_HEIGHT }} />
 
-      <div className="h-[400vh]">
+      {/* SCROLL AREA */}
+      <div className="h-[320vh] sm:h-[350vh] lg:h-[400vh]">
         <div
           className="sticky flex items-center justify-center"
           style={{
@@ -78,10 +82,15 @@ const ScrollOverlapSlides = (): JSX.Element => {
             height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
           }}
         >
-          <div className="relative w-[90vw] max-w-6xl h-[75vh] rounded-3xl overflow-hidden shadow-[0_40px_120px_rgba(0,0,0,0.6)]">
+          {/* MAIN CARD */}
+          <div className="relative w-[94vw] lg:w-[90vw] max-w-6xl 
+                          h-[82vh] sm:h-[78vh] lg:h-[75vh]
+                          rounded-3xl overflow-hidden
+                          shadow-[0_30px_90px_rgba(0,0,0,0.45)]">
 
             {/* SLIDE 1 */}
-            <div className="absolute inset-0 z-10 bg-gradient-to-br from-rose-600 to-red-700 p-14 flex items-center">
+            <div className="absolute inset-0 z-10 bg-gradient-to-br from-rose-600 to-red-700 
+                            p-6 sm:p-10 lg:p-14 flex items-center">
               <SlideLayout
                 subtitle="Introduction"
                 title="Build Powerful User Interfaces"
@@ -94,7 +103,8 @@ const ScrollOverlapSlides = (): JSX.Element => {
             {/* SLIDE 2 */}
             <motion.div
               style={{ y: slide2Y }}
-              className="absolute inset-0 z-20 bg-gradient-to-br from-emerald-600 to-emerald-800 p-14 flex items-center"
+              className="absolute inset-0 z-20 bg-gradient-to-br from-emerald-600 to-emerald-800 
+                         p-6 sm:p-10 lg:p-14 flex items-center"
             >
               <SlideLayout
                 subtitle="Strategy"
@@ -114,7 +124,8 @@ const ScrollOverlapSlides = (): JSX.Element => {
             {/* SLIDE 3 */}
             <motion.div
               style={{ y: slide3Y }}
-              className="absolute inset-0 z-30 bg-gradient-to-br from-indigo-600 to-blue-700 p-14 flex items-center"
+              className="absolute inset-0 z-30 bg-gradient-to-br from-indigo-600 to-blue-700 
+                         p-6 sm:p-10 lg:p-14 flex items-center"
             >
               <SlideLayout
                 subtitle="Technology"
@@ -134,7 +145,8 @@ const ScrollOverlapSlides = (): JSX.Element => {
             {/* SLIDE 4 */}
             <motion.div
               style={{ y: slide4Y }}
-              className="absolute inset-0 z-40 bg-gradient-to-br from-slate-800 to-slate-900 p-14 flex items-center"
+              className="absolute inset-0 z-40 bg-gradient-to-br from-slate-800 to-slate-900 
+                         p-6 sm:p-10 lg:p-14 flex items-center"
             >
               <SlideLayout
                 subtitle="Growth"
