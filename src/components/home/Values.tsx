@@ -4,28 +4,28 @@ import { Target, ShieldCheck, Zap, Rocket } from "lucide-react";
 const values = [
   {
     title: "Strategic Thinking",
-    desc: "Every decision is driven by data, research, and long-term business goals — not trends.",
+    desc: "We focus on measurable business outcomes — leads, revenue,engagement, and operational efficiency.",
     icon: Target,
     bg: "from-pink-100 to-rose-100",
     iconBg: "bg-rose-500",
   },
   {
     title: "Execution Excellence",
-    desc: "Pixel-perfect design and robust engineering delivered with speed and consistency.",
+    desc: "We continuously adopt modern frameworks, AI tools, and automation to keep our clients ahead.",
     icon: Zap,
     bg: "from-sky-100 to-blue-100",
     iconBg: "bg-sky-500",
   },
   {
     title: "Innovation with Purpose",
-    desc: "We adopt modern technology only when it creates real, measurable impact.",
+    desc: "We work as long-term partners, not vendors — aligned with your business goals and growth roadmap.",
     icon: Rocket,
     bg: "from-amber-100 to-orange-100",
     iconBg: "bg-amber-500",
   },
   {
     title: "Trust & Transparency",
-    desc: "Clear communication, honest timelines, and partnerships built for the long run.",
+    desc: "From design to deployment, we maintain high standardsin quality, performance, and reliability.",
     icon: ShieldCheck,
     bg: "from-emerald-100 to-mint-100",
     iconBg: "bg-emerald-500",

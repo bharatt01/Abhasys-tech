@@ -8,7 +8,7 @@ import ScrollToTop from "../src/components/layout/ScrollToTop"; // 👈 ADD THIS
 
 import Index from "./pages/Index";
 import Services from "./pages/Services";
-import CaseStudies from "./pages/CaseStudies";
+import Work from "./pages/Work";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
@@ -28,7 +28,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/our-work" element={<CaseStudies />} />
+          <Route path="/our-work" element={<Work />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />

@@ -7,20 +7,23 @@ import { Link } from "react-router-dom";
 const momentumSteps = [
   {
     step: "01",
-    title: "Clarity Before Speed",
-    text: "We eliminate noise before execution. Clear positioning, clear priorities, and a defined growth direction.",
+    title: "Clarity Before Execution",
+    text:
+      "Before building or scaling, we define positioning, priorities, and success metrics. Clear direction prevents wasted effort and aligns teams around outcomes, not assumptions.",
     accent: "#000000",
   },
   {
     step: "02",
-    title: "Systems Over Campaigns",
-    text: "We don’t chase short-term wins. We design systems that compound results across platforms and channels.",
+    title: "Systems That Compound Growth",
+    text:
+      "Instead of short-lived campaigns, we design scalable systems — from product architecture to marketing workflows — that create consistent, repeatable growth across channels.",
     accent: "#FF2E00",
   },
   {
     step: "03",
-    title: "Execution With Accountability",
-    text: "Every move is measurable. Every decision has ownership. Growth is tracked, refined, and repeated.",
+    title: "Measured Execution, Real Accountability",
+    text:
+      "Every initiative is tracked, reviewed, and refined. We take ownership of decisions, measure performance against real data, and improve continuously — without guesswork.",
     accent: "#0047FF",
   },
 ];
@@ -32,6 +35,7 @@ const MomentumSection = () => {
   return (
     <section className="py-36 bg-white">
       <div ref={ref} className="max-w-6xl mx-auto px-6">
+
         {/* Intro */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
@@ -40,18 +44,19 @@ const MomentumSection = () => {
           className="mb-32"
         >
           <span className="text-sm font-bold tracking-widest uppercase text-neutral-500">
-            Our Approach
+            Our Process
           </span>
 
           <h2 className="mt-6 text-5xl md:text-7xl font-extrabold text-black leading-tight">
             Momentum
             <br />
-            Is Not Accidental.
+            Is Engineered.
           </h2>
 
           <p className="mt-8 max-w-2xl text-lg text-neutral-600">
-            Growth happens when strategy, systems, and execution move in the same
-            direction — consistently.
+            Sustainable growth is not driven by hacks or isolated efforts.
+            It’s built when strategy, systems, and execution are designed
+            to work together — over time.
           </p>
         </motion.div>
 
@@ -65,7 +70,7 @@ const MomentumSection = () => {
               transition={{ duration: 0.6, delay: index * 0.15 }}
               className="relative"
             >
-              {/* Big Step Number */}
+              {/* Large Step Number */}
               <div
                 className="absolute -top-16 left-0 text-[120px] font-extrabold leading-none opacity-10 select-none"
                 style={{ color: item.accent }}
@@ -82,7 +87,7 @@ const MomentumSection = () => {
                   {item.text}
                 </p>
 
-                {/* Accent underline */}
+                {/* Accent Line */}
                 <motion.div
                   initial={{ width: 0 }}
                   animate={isInView ? { width: "120px" } : {}}
@@ -106,10 +111,11 @@ const MomentumSection = () => {
             to="/contact"
             className="inline-flex items-center gap-4 text-xl font-bold text-black border-b-4 border-black pb-2 hover:gap-6 transition-all"
           >
-            Start a Conversation
+            Start a Strategic Conversation
             <ArrowRight className="w-6 h-6" />
           </Link>
         </motion.div>
+
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Zap } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
@@ -40,15 +40,16 @@ const Navbar = () => {
       <div className="container mx-auto px-4">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-800 to-violet-900 flex items-center justify-center shadow-lg group-hover:shadow-[0_0_50px_rgba(99,102,241,0.45)] transition-all">
-              <Zap className="w-5 h-5 text-indigo-200" />
-            </div>
-            <span className="text-xl font-bold text-slate-100">
-              Apex
-              <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent">
-                Growth
-              </span>
+          <Link to="/" className="flex items-center gap-3 group">
+            <img
+              src="/images/logo.png"
+              alt="Abhasys Logo"
+              className={`w-auto object-contain transition-all duration-300 ${
+                isScrolled ? "h-9" : "h-11"
+              } group-hover:scale-105`}
+            />
+            <span className="text-xl font-bold text-slate-100 tracking-wide">
+              Abhasys
             </span>
           </Link>
 
@@ -60,11 +61,11 @@ const Navbar = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                className={`text-sm font-medium transition-colors duration-200 ${
-  location.pathname === link.path
-    ? "text-indigo-500"
-    : "text-indigo-300 hover:text-indigo-700"
-}`}
+                  className={`text-sm font-medium transition-colors duration-200 ${
+                    isActive
+                      ? "text-indigo-500"
+                      : "text-indigo-300 hover:text-indigo-700"
+                  }`}
                 >
                   {link.name}
                 </Link>

@@ -28,8 +28,7 @@ const Index = () => {
 
         <TrustBar />
         <ImpactProcess />
-        <CenterExpandReveal />
-        
+       
         <ServicesPreview />
         <CurtainReveal />
         <MomentumSection   />

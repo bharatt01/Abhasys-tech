@@ -59,7 +59,7 @@ const Hero = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
   const typedText = useTypewriter(
-    "Transforming Businesses Via Technology & Strategy"
+    "Technology & Strategy"
   );
 
   return (
@@ -119,19 +119,48 @@ const Hero = () => {
         <div className="max-w-5xl mx-auto text-center">
           {/* 🔥 Typewriter Heading */}
           <h1
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl 
-                       font-extrabold leading-[1.05] mb-20 
-                       text-center tracking-tight"
-          >
-            <span className="relative inline-block text-white">
-              {typedText}
-              <span
-                className="inline-block w-[2px] h-[1em] ml-1 align-middle 
-                           bg-white/80 
-                           animate-[pulse_1.8s_ease-in-out_infinite]"
-              />
-            </span>
-          </h1>
+  className="
+    text-4xl sm:text-5xl md:text-6xl lg:text-7xl
+    font-extrabold leading-[1.05]
+    text-center tracking-tight text-white
+    mt-16   /* ⬅ shifts text downward */
+    mb-20
+  "
+>
+  {/* LINE 1 */}
+  <div className="block mb-2">
+    Transforming Businesses
+  </div>
+
+  {/* LINE 2 – VIA (accent color) */}
+  <div
+  className="
+    block
+    mb-3
+    text-indigo-400
+    text-2xl sm:text-3xl md:text-4xl
+    font-semibold
+    tracking-widest
+    uppercase
+    translate-y-3
+  "
+>
+  Via
+</div>
+
+
+  {/* LINE 3 – TYPEWRITER */}
+  <div className="relative inline-block">
+    {typedText}
+    <span
+      className="
+        inline-block w-[2px] h-[1em] ml-1 align-middle
+        bg-white/80
+        animate-[pulse_1.8s_ease-in-out_infinite]
+      "
+    />
+  </div>
+</h1>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">

@@ -3,32 +3,28 @@ import { useRef } from "react";
 
 const impacts = [
   {
-    title: "Clarity That Aligns Teams",
+    title: "Strategic Clarity That Aligns Teams",
     description:
-      "We translate complex ideas into clear direction — so everyone moves forward with confidence.",
-    image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c",
+      "We break down complex business goals into clear digital strategies, helping teams align faster, reduce friction, and execute with confidence.",
+    image: "/images/img1.jpg",
   },
   {
-    title: "Design That Earns Trust",
+    title: "Design Systems That Build Trust",
     description:
-      "Clean, intentional interfaces that feel credible, familiar, and quietly persuasive.",
-    image:
-      "https://images.unsplash.com/photo-1545235617-9465d2a55698",
+      "Our UI and UX design focuses on clarity, consistency, and usability—creating interfaces that feel reliable, intuitive, and professionally crafted.",
+    image: "/images/img2.jpg",
   },
   {
-    title: "Technology Built to Scale",
+    title: "Scalable Technology Foundations",
     description:
-      "Fast, stable systems designed to grow without rewrites, rework, or technical debt.",
-    image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475",
+      "We engineer fast, secure, and scalable web applications that are easy to maintain, future-ready, and built to grow with your business.",
+    image: "/images/img3.jpg",
   },
   {
-    title: "Growth Driven by Signals",
+    title: "Growth Driven by Real Data",
     description:
-      "Every decision backed by data, feedback, and real-world performance — not assumptions.",
-    image:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df",
+      "Every improvement is guided by analytics, user behavior, and performance insights—ensuring smarter decisions and measurable business growth.",
+    image: "/images/img4.jpg",
   },
 ];
 
@@ -37,44 +33,39 @@ const ImpactShowcase = () => {
   const isInView = useInView(ref, { once: true, margin: "-120px" });
 
   return (
-    <section ref={ref} className="py-24 bg-white">
-
-<div className="container mx-auto px-4 max-w-6xl">
+    <section ref={ref} className="pt-12 pb-20 bg-white">
+      <div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 22 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-         className="text-center max-w-2xl mx-auto mb-14"
-
+          className="text-center max-w-2xl mx-auto mb-12"
         >
-          <span className="text-xs font-bold uppercase tracking-widest text-neutral-500">
-            Our Impact
-          </span>
-
-          <h2 className="mt-5 text-3xl md:text-4xl font-extrabold text-black leading-tight">
-            How We Create
+          <h2 className="text-3xl md:text-4xl font-extrabold text-black leading-tight">
+            How We Deliver
             <br />
-            Meaningful Impact
+            Real Business Impact
           </h2>
 
-          <p className="mt-5 text-base text-neutral-600">
-            Real outcomes that move businesses forward — without noise.
+          <p className="mt-4 text-base text-neutral-600">
+            Strategy, design, and technology working together to create products
+            that perform, scale, and last.
           </p>
         </motion.div>
 
-        {/* Grid: 2 Columns */}
+        {/* Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           {impacts.map((item, index) => (
             <motion.div
               key={item.title}
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 26 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.08 }}
               className="group"
             >
               {/* Image */}
-              <div className="relative h-[220px] overflow-hidden border-2 border-black">
+              <div className="relative h-[300px] overflow-hidden border-2 border-black">
                 <img
                   src={item.image}
                   alt={item.title}
@@ -99,17 +90,17 @@ const ImpactShowcase = () => {
           ))}
         </div>
 
-        {/* Footer Line */}
+        {/* Footer */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.4 }}
-          className="mt-20 text-center"
+          className="mt-16 text-center"
         >
           <p className="text-lg font-semibold text-black max-w-xl mx-auto">
-            The difference between launching —
+            Not just building products —
             <br />
-            and building something that lasts.
+            building foundations for long-term growth.
           </p>
         </motion.div>
       </div>

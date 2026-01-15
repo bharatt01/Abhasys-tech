@@ -52,21 +52,28 @@ const DepthZoomReveal = (): JSX.Element => {
           />
 
           <div className="relative text-center px-12 text-white">
-            <span className="uppercase tracking-widest text-xs opacity-70">
-              Fast Reveal
-            </span>
+  <span className="uppercase tracking-widest text-xs opacity-70">
+   Our Approach
 
-            <h1 className="text-5xl md:text-6xl font-extrabold mt-6 leading-tight">
-              Depth
-              <br />
-              Zoom Effect
-            </h1>
+  </span>
 
-            <p className="mt-6 text-lg text-white/85 max-w-xl mx-auto">
-              A rapid depth-based reveal that finishes early,
-              grabs attention instantly, and feels bold.
-            </p>
-          </div>
+  <h1 className="text-5xl md:text-6xl font-extrabold mt-6 leading-tight">
+   Strategy-Led Digital
+
+    <br />
+Growth Solutions
+
+  </h1>
+
+  <p className="mt-6 text-lg text-white/85 max-w-xl mx-auto">
+ Every solution we build starts with strategy.
+We combine user experience design, modern engineering,
+and performance marketing to create digital systems
+that scale with your business.
+
+  </p>
+</div>
+
         </motion.div>
       </div>
     </div>

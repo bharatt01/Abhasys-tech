@@ -68,35 +68,38 @@ const ScrollOverlapSlides = (): JSX.Element => {
     </div>
   );
 
-  return (
-    <div ref={ref} className="bg-white">
-      {/* NAVBAR BUFFER */}
-      <div style={{ height: NAVBAR_HEIGHT }} />
+ return (
+  <div ref={ref} className="bg-white">
+    {/* REDUCED TOP WHITE GAP */}
+    <div style={{ height:  2}} />
 
-      {/* SCROLL AREA */}
-      <div className="h-[320vh] sm:h-[350vh] lg:h-[400vh]">
-        <div
-          className="sticky flex items-center justify-center"
-          style={{
-            top: NAVBAR_HEIGHT,
-            height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
-          }}
-        >
-          {/* MAIN CARD */}
-          <div className="relative w-[94vw] lg:w-[90vw] max-w-6xl 
-                          h-[82vh] sm:h-[78vh] lg:h-[75vh]
-                          rounded-3xl overflow-hidden
-                          shadow-[0_30px_90px_rgba(0,0,0,0.45)]">
+
+    {/* SCROLL AREA */}
+    <div className="h-[320vh] sm:h-[350vh] lg:h-[400vh]">
+      <div
+        className="sticky flex items-center justify-center"
+        style={{
+          top: NAVBAR_HEIGHT,
+          height: `calc(100vh - ${NAVBAR_HEIGHT}px)`,
+        }}
+      >
+        {/* MAIN CARD */}
+        <div className="relative w-[96vw] lg:w-[92vw] max-w-7xl
+                        h-[82vh] sm:h-[78vh] lg:h-[75vh]
+                        rounded-3xl overflow-hidden
+                        shadow-[0_30px_90px_rgba(0,0,0,0.45)]">
+          {/* slides stay SAME */}
 
             {/* SLIDE 1 */}
             <div className="absolute inset-0 z-10 bg-gradient-to-br from-rose-600 to-red-700 
                             p-6 sm:p-10 lg:p-14 flex items-center">
               <SlideLayout
-                subtitle="Introduction"
-                title="Build Powerful User Interfaces"
-                content="Create visually striking, high-performance interfaces using React, Tailwind CSS, and motion-driven design systems."
-                image="/images/uiux.jpg"
-                button="Learn More"
+                subtitle="The Challenge"
+                title="Most Websites Look Good — But Don’t Perform"
+                content="Many businesses invest in websites that look visually appealing but fail to attract traffic, retain users, or generate leads. Slow load times, poor structure, and unclear messaging often limit real growth, even when the product or service is strong."
+                image="/images/slide1.jpg"
+                button="Why Performance Matters
+"
               />
             </div>
 
@@ -107,17 +110,11 @@ const ScrollOverlapSlides = (): JSX.Element => {
                          p-6 sm:p-10 lg:p-14 flex items-center"
             >
               <SlideLayout
-                subtitle="Strategy"
-                title="Design With Purpose"
-                content={
-                  <ul className="space-y-2">
-                    <li>• UX-first layouts</li>
-                    <li>• Clear visual hierarchy</li>
-                    <li>• Conversion-focused structure</li>
-                  </ul>
-                }
-                image="/slides/slide2.png"
-                button="View Strategy"
+                subtitle="Our Philosophy"
+                title="Design and Development Must Work Together"
+                content="We believe successful digital products are built at the intersection of strategy, user experience, and technology. Every layout, interaction, and content block is planned to guide users clearly while supporting long-term scalability and search visibility."
+                image="/images/slide2.jpg"
+                button="How We Approach Projects"
               />
             </motion.div>
 
@@ -129,16 +126,10 @@ const ScrollOverlapSlides = (): JSX.Element => {
             >
               <SlideLayout
                 subtitle="Technology"
-                title="Motion-First Experiences"
-                content={
-                  <ul className="space-y-2">
-                    <li>• Framer Motion powered</li>
-                    <li>• Scroll-based animations</li>
-                    <li>• Zero jank performance</li>
-                  </ul>
-                }
-                image="/slides/slide3.png"
-                button="Explore Tech"
+                title="Modern, Performance-First Web Development"
+                content="Our builds focus on clean architecture, fast performance, and maintainable code. Using modern frameworks and motion-driven interfaces, we create websites that feel smooth to use while remaining lightweight, accessible, and optimized for search engines."
+                image="/images/slide3.jpg"
+                button="Our Technical Stack"
               />
             </motion.div>
 
@@ -149,18 +140,11 @@ const ScrollOverlapSlides = (): JSX.Element => {
                          p-6 sm:p-10 lg:p-14 flex items-center"
             >
               <SlideLayout
-                subtitle="Growth"
-                title="Built to Scale"
-                content={
-                  <div className="grid grid-cols-2 gap-3 text-sm">
-                    <span>• Modular components</span>
-                    <span>• Enterprise ready</span>
-                    <span>• SEO optimized</span>
-                    <span>• Lightning fast</span>
-                  </div>
-                }
-                image="/slides/slide4.png"
-                button="Start Building"
+                subtitle="The Result"
+                title="Digital Platforms That Grow With Your Business"
+                content="The result is a website or application that loads fast, ranks better, adapts easily, and supports real business goals. Whether it’s lead generation, brand positioning, or product expansion, the foundation is built to scale as your business evolves."
+                image="/images/slide4.jpg"
+                button="Start a Project"
               />
             </motion.div>
 

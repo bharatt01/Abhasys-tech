@@ -20,94 +20,64 @@ import ValuesPop from "@/components/home/Values";
 import DepthZoomReveal from "@/components/home/DepthZoomReveal";
 const timelineEvents = [
   {
-    year: "2018",
+    year: "2021",
     title: "The Beginning",
-    description: "Founded in Gurugram with a vision to transform Indian businesses through technology and strategy.",
+    description: "Founded in Faridabad with a vision to transform Indian businesses through technology and strategy.",
     highlight: "3 team members, 1 office",
   },
   {
-    year: "2019",
+    year: "2022",
     title: "First Major Win",
     description: "Secured our first enterprise client and expanded digital marketing services.",
     highlight: "50+ projects delivered",
   },
   {
-    year: "2020",
+    year: "2023",
     title: "Going Remote-First",
     description: "Pivoted to remote operations, expanded team across India, and launched SaaS maintenance vertical.",
     highlight: "100+ clients served",
   },
   {
-    year: "2021",
+    year: "2024",
     title: "Physical Marketing Launch",
     description: "Introduced BTL activations and offline branding services to offer 360° solutions.",
     highlight: "25 team members",
   },
   {
-    year: "2022",
+    year: "2025",
     title: "National Expansion",
     description: "Opened offices in Mumbai and Bangalore, launched consultancy services.",
     highlight: "300+ projects milestone",
   },
   {
-    year: "2023",
+    year: "2026",
     title: "AI Integration",
     description: "Integrated AI/LLM capabilities into our tech stack, pioneering AI-first solutions.",
     highlight: "500+ successful projects",
-  },
-  {
-    year: "2024",
-    title: "Industry Recognition",
-    description: "Received multiple industry awards, expanded to serve international clients.",
-    highlight: "150+ happy clients",
   },
 ];
 
 const teamMembers = [
   {
-    name: "Arjun Mehta",
-    role: "Founder & CEO",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-    bio: "15+ years in tech leadership. Previously at Google and Flipkart.",
-    linkedin: "#",
-    twitter: "#",
-  },
-  {
-    name: "Priya Sharma",
-    role: "Chief Technology Officer",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face",
-    bio: "Full-stack architect with expertise in React, Node.js, and cloud infrastructure.",
-    linkedin: "#",
-    twitter: "#",
-  },
-  {
-    name: "Rahul Kapoor",
-    role: "Head of Marketing",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-    bio: "Digital marketing strategist with 10+ years driving growth for D2C brands.",
-    linkedin: "#",
-    twitter: "#",
-  },
-  {
-    name: "Neha Gupta",
-    role: "Creative Director",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+    name: "Amod Kr Sharma",
+    role: "Business Head",
+    image: "/images/founder2.png",
     bio: "Award-winning designer specializing in brand identity and UX design.",
     linkedin: "#",
     twitter: "#",
   },
   {
-    name: "Vikram Singh",
-    role: "Head of Sales",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
+    name: "Bharat Sharma",
+    role: "Founder",
+    image: "/images/Founder.jpg",
     bio: "Business development expert with deep enterprise sales experience.",
     linkedin: "#",
     twitter: "#",
   },
   {
-    name: "Ananya Reddy",
-    role: "Lead Consultant",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face",
+    name: "Abhishek Rawat",
+    role: "Web Developer",
+    image: "/images/Technical-Head.jpg",
     bio: "Strategy consultant helping businesses optimize operations and scale.",
     linkedin: "#",
     twitter: "#",
@@ -222,13 +192,13 @@ const TeamCard = ({
       className="group"
     >
       <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-card hover:shadow-lift transition-all duration-500 hover:-translate-y-2">
-     <div className="h-[320px] overflow-hidden">
+    <div className="h-[380px] overflow-hidden">
+  <img
+    src={member.image}
+    alt={member.name}
+    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+  />
 
-          <img
-            src={member.image}
-            alt={member.name}
-            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-          />
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           
           {/* Hover Content */}
@@ -282,8 +252,10 @@ const About = () => {
               <span className="text-gradient">Indian Business</span>
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
-              We're a team of passionate technologists, marketers, and strategists 
-              dedicated to helping Indian businesses thrive in the digital age.
+           We are a technology and growth consultancy helping Indian businesses
+build scalable digital products, high-converting websites, and
+data-driven marketing systems that deliver measurable results.
+
             </p>
           </motion.div>
         </section>
@@ -301,9 +273,13 @@ const About = () => {
                 <div className="absolute top-0 right-0 w-64 h-64 bg-primary-foreground/10 rounded-full blur-3xl" />
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 relative z-10">Our Mission</h2>
                 <p className="text-lg text-primary-foreground/90 relative z-10 leading-relaxed">
-                  To democratize access to world-class technology and marketing solutions 
-                  for businesses of all sizes across India, enabling them to compete 
-                  and succeed on the global stage.
+               Our mission is to help Indian startups, SMEs, and enterprises adopt
+modern technology, performance-driven marketing, and scalable systems
+without complexity or unnecessary cost.
+
+We focus on clarity, execution, and long-term growth — not short-term
+tactics.
+
                 </p>
               </motion.div>
             </ParallaxSection>
@@ -319,9 +295,10 @@ const About = () => {
                 <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-foreground/10 rounded-full blur-3xl" />
                 <h2 className="text-3xl md:text-4xl font-bold mb-4 relative z-10">Our Vision</h2>
                 <p className="text-lg text-accent-foreground/90 relative z-10 leading-relaxed">
-                  To be India's most trusted growth partner, known for transforming 
-                  businesses through innovative technology, creative marketing, 
-                  and strategic excellence.
+           Our vision is to become India’s most reliable digital growth partner —
+trusted by businesses for delivering strategy-led design, robust
+technology, and sustainable growth outcomes across industries.
+
                 </p>
               </motion.div>
             </ParallaxSection>
@@ -345,7 +322,11 @@ const About = () => {
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mb-4">From Startup to Industry Leader</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              A timeline of our growth, milestones, and achievements.
+             From a small founding team to a nationally recognized
+technology and growth consultancy, our journey reflects
+consistent delivery, long-term client relationships,
+and continuous evolution.
+
             </p>
           </motion.div>
 
