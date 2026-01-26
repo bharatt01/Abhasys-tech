@@ -42,7 +42,8 @@ const ServicesPreview = () => {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <section className="py-28 bg-white">
+    <section className="py-12 bg-white">
+
       <div ref={ref} className="container mx-auto px-4">
         {/* Header */}
         <motion.div
@@ -51,11 +52,9 @@ const ServicesPreview = () => {
           transition={{ duration: 0.4 }}
           className="max-w-3xl mx-auto mb-20 text-center"
         >
-          <span className="text-sm font-bold uppercase tracking-widest text-black">
-            What We Do
-          </span>
+          
 
-          <h2 className="text-4xl md:text-6xl font-extrabold mt-4 leading-tight tracking-tight text-black">
+          <h2 className="text-4xl md:text-5xl font-extrabold mt-4 leading-tight tracking-tight text-black">
             Built to Grow.
             <br />
             Designed to Win.

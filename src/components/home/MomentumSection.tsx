@@ -33,7 +33,7 @@ const MomentumSection = () => {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <section className="py-36 bg-white">
+    <section className="py-12 bg-white">
       <div ref={ref} className="max-w-6xl mx-auto px-6">
 
         {/* Intro */}
@@ -41,19 +41,15 @@ const MomentumSection = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="mb-32"
+          className="mb-10"
         >
-          <span className="text-sm font-bold tracking-widest uppercase text-neutral-500">
-            Our Process
-          </span>
-
-          <h2 className="mt-6 text-5xl md:text-7xl font-extrabold text-black leading-tight">
+          <h2 className="mt-4 text-3xl md:text-5xl font-extrabold text-black leading-tight">
             Momentum
             <br />
-            Is Engineered.
+            is Engineered.
           </h2>
 
-          <p className="mt-8 max-w-2xl text-lg text-neutral-600">
+          <p className="mt-4 max-w-2xl text-lg text-neutral-600">
             Sustainable growth is not driven by hacks or isolated efforts.
             It’s built when strategy, systems, and execution are designed
             to work together — over time.
@@ -61,7 +57,7 @@ const MomentumSection = () => {
         </motion.div>
 
         {/* Steps */}
-        <div className="space-y-28">
+        <div className="space-y-12">
           {momentumSteps.map((item, index) => (
             <motion.div
               key={item.step}
@@ -72,7 +68,7 @@ const MomentumSection = () => {
             >
               {/* Large Step Number */}
               <div
-                className="absolute -top-16 left-0 text-[120px] font-extrabold leading-none opacity-10 select-none"
+                className="absolute -top-10 left-0 text-[100px] font-extrabold leading-none opacity-10 select-none"
                 style={{ color: item.accent }}
               >
                 {item.step}
@@ -83,7 +79,7 @@ const MomentumSection = () => {
                   {item.title}
                 </h3>
 
-                <p className="mt-6 text-lg text-neutral-600 leading-relaxed">
+                <p className="mt-3 text-lg text-neutral-600 leading-relaxed">
                   {item.text}
                 </p>
 
@@ -92,7 +88,7 @@ const MomentumSection = () => {
                   initial={{ width: 0 }}
                   animate={isInView ? { width: "120px" } : {}}
                   transition={{ duration: 0.5, delay: 0.2 }}
-                  className="mt-8 h-[4px]"
+                  className="mt-4 h-[4px]"
                   style={{ backgroundColor: item.accent }}
                 />
               </div>
@@ -105,11 +101,11 @@ const MomentumSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.4 }}
-          className="mt-40"
+          className="mt-14"
         >
           <Link
             to="/contact"
-            className="inline-flex items-center gap-4 text-xl font-bold text-black border-b-4 border-black pb-2 hover:gap-6 transition-all"
+            className="inline-flex items-center gap-3 text-xl font-bold text-black border-b-2 border-black pb-1 hover:gap-5 transition-all"
           >
             Start a Strategic Conversation
             <ArrowRight className="w-6 h-6" />

@@ -33,8 +33,9 @@ const ImpactShowcase = () => {
   const isInView = useInView(ref, { once: true, margin: "-120px" });
 
   return (
-    <section ref={ref} className="pt-12 pb-20 bg-white">
-      <div className="container mx-auto px-4 max-w-6xl">
+<section ref={ref} className="pt-10 pb-4 bg-white">
+
+<div className="container mx-auto px-4 max-w-6xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 22 }}
@@ -42,7 +43,7 @@ const ImpactShowcase = () => {
           transition={{ duration: 0.5 }}
           className="text-center max-w-2xl mx-auto mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-extrabold text-black leading-tight">
+          <h2 className="text-3xl md:text-5xl font-extrabold text-black leading-tight">
             How We Deliver
             <br />
             Real Business Impact
@@ -95,13 +96,13 @@ const ImpactShowcase = () => {
           initial={{ opacity: 0, y: 14 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ delay: 0.4 }}
-          className="mt-16 text-center"
+         className="mt-8 text-center"
+
         >
-          <p className="text-lg font-semibold text-black max-w-xl mx-auto">
-            Not just building products —
-            <br />
-            building foundations for long-term growth.
-          </p>
+         <p className="text-lg font-semibold text-black max-w-3xl mx-auto">
+  " Not just building products — building foundations for long-term growth."
+</p>
+
         </motion.div>
       </div>
     </section>

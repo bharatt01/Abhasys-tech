@@ -43,12 +43,14 @@ const ValuesProfessional = () => {
           viewport={{ once: true }}
           className="max-w-3xl mx-auto text-center mb-20"
         >
-          <span className="text-sm font-semibold tracking-widest uppercase text-rose-500">
-            Our Principles
+          {/* <span className="text-sm font-semibold "> */}
+           <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-lg font-semibold mb-6 tracking-widest uppercase text-rose-500">
+             
+            Our Values
           </span>
 
-          <h2 className="mt-4 text-4xl md:text-5xl font-bold text-slate-900">
-            Values that guide how we work
+          <h2 className="text-3xl md:text-5xl font-extrabold font-bold text-slate-900">
+            Principles that guide how we work
           </h2>
 
           {/* Candy underline */}

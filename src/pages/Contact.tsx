@@ -97,7 +97,7 @@ const Contact = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
-                        placeholder="John Doe"
+                        placeholder="Ankit"
                         required
                         className="rounded-xl h-12"
                       />
@@ -112,7 +112,7 @@ const Contact = () => {
                         type="email"
                         value={formData.email}
                         onChange={handleChange}
-                        placeholder="john@company.com"
+                        placeholder="ankit@hello.com"
                         required
                         className="rounded-xl h-12"
                       />
@@ -206,10 +206,10 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold mb-1">Email Us</h3>
                     <a
-                      href="mailto:hello@apexgrowth.in"
+                      href="mailto:contact@abhasys.com"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      hello@apexgrowth.in
+                     contact@abhasys.com
                     </a>
                   </div>
                 </div>
@@ -221,10 +221,10 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold mb-1">Call Us</h3>
                     <a
-                      href="tel:+919876543210"
+                      href="tel:+919717024896"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      +91 98765 43210
+                      +91 9717024896
                     </a>
                   </div>
                 </div>
@@ -236,21 +236,17 @@ const Contact = () => {
                   <div>
                     <h3 className="font-semibold mb-1">Visit Us</h3>
                     <p className="text-muted-foreground">
-                      Cyber Hub, Tower A, 5th Floor
+                    171, Sector-22, Faridabad
                       <br />
-                      Gurugram, Haryana 122002
+                      
+Haryana, India 121005
                     </p>
                   </div>
                 </div>
               </div>
 
               {/* Map Placeholder */}
-              <div className="rounded-2xl overflow-hidden border border-border/50 h-[250px] bg-muted flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-8 h-8 text-muted-foreground mx-auto mb-2" />
-                  <p className="text-sm text-muted-foreground">Interactive map coming soon</p>
-                </div>
-              </div>
+             
             </motion.div>
           </div>
         </section>

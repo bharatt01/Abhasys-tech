@@ -12,6 +12,8 @@ import {
   Twitter,
   Mail
 } from "lucide-react";
+import { User } from "lucide-react";
+
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
@@ -58,14 +60,7 @@ const timelineEvents = [
 ];
 
 const teamMembers = [
-  {
-    name: "Amod Kr Sharma",
-    role: "Business Head",
-    image: "/images/founder2.png",
-    bio: "Award-winning designer specializing in brand identity and UX design.",
-    linkedin: "#",
-    twitter: "#",
-  },
+  
   {
     name: "Bharat Sharma",
     role: "Founder",
@@ -79,6 +74,14 @@ const teamMembers = [
     role: "Web Developer",
     image: "/images/Technical-Head.jpg",
     bio: "Strategy consultant helping businesses optimize operations and scale.",
+    linkedin: "#",
+    twitter: "#",
+  },
+  {
+    name: "Bhavesh Gupta",
+    role: "Business Head",
+    image: "/images/founder5.png",
+    bio: "Award-winning designer specializing in brand identity and UX design.",
     linkedin: "#",
     twitter: "#",
   },
@@ -193,11 +196,24 @@ const TeamCard = ({
     >
       <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-card hover:shadow-lift transition-all duration-500 hover:-translate-y-2">
     <div className="h-[380px] overflow-hidden">
+  <div className="h-[380px] overflow-hidden flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 relative">
   <img
     src={member.image}
     alt={member.name}
+    onError={(e) => {
+      e.currentTarget.style.display = "none";
+      const icon = e.currentTarget.nextElementSibling as HTMLElement;
+      if (icon) icon.style.display = "flex";
+    }}
     className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
   />
+
+  {/* Fallback Icon */}
+  <div className="hidden absolute inset-0 items-center justify-center">
+    <User className="w-20 h-20 text-gray-400" />
+  </div>
+</div>
+
 
           <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           
@@ -244,12 +260,12 @@ const About = () => {
             transition={{ duration: 0.5 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-semibold mb-6">
-              Our Story
+            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-lg font-semibold mb-6">
+              About Us
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-heading mb-6">
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-heading mb-6">
               Building the Future of{" "}
-              <span className="text-gradient">Indian Business</span>
+              <span className="text-gradient">Business</span>
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
            We are a technology and growth consultancy helping Indian businesses
@@ -310,53 +326,56 @@ technology, and sustainable growth outcomes across industries.
        <ValuesPop />
 
         {/* Timeline */}
-        <section className="container mx-auto px-4 mb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-4">
-              Our Journey
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">From Startup to Industry Leader</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-             From a small founding team to a nationally recognized
-technology and growth consultancy, our journey reflects
-consistent delivery, long-term client relationships,
-and continuous evolution.
+<section className="container mx-auto px-4 mb-16">
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    className="text-center mb-4"
+  >
+    {/* <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-2"> */}
+   <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-lg font-semibold mb-6">
+            
+    Our  Journey
+    </span>
+    <h2 className="text-3xl md:text-5xl font-extrabold font-bold mb-2">
+      From Startup to Industry Leader
+    </h2>
+    <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+      From a small founding team to a nationally recognized technology and growth consultancy,
+      our journey reflects consistent delivery, long-term client relationships,
+      and continuous evolution.
+    </p>
+  </motion.div>
 
-            </p>
-          </motion.div>
+  {/* Desktop Timeline */}
+  <div className="max-w-4xl mx-auto hidden md:block">
+    {timelineEvents.map((event, index) => (
+      <TimelineItem key={event.year} event={event} index={index} />
+    ))}
+  </div>
 
-          <div className="max-w-4xl mx-auto hidden md:block">
-            {timelineEvents.map((event, index) => (
-              <TimelineItem key={event.year} event={event} index={index} />
-            ))}
-          </div>
-
-          {/* Mobile Timeline */}
-          <div className="md:hidden space-y-6">
-            {timelineEvents.map((event, index) => (
-              <motion.div
-                key={event.year}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="p-6 rounded-2xl bg-card border border-border"
-              >
-                <span className="text-3xl font-extrabold text-gradient">{event.year}</span>
-                <h3 className="text-lg font-bold mt-2 mb-2">{event.title}</h3>
-                <p className="text-muted-foreground mb-3">{event.description}</p>
-                <span className="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-medium">
-                  {event.highlight}
-                </span>
-              </motion.div>
-            ))}
-          </div>
-        </section>
+  {/* Mobile Timeline */}
+  <div className="md:hidden space-y-1.5">
+    {timelineEvents.map((event, index) => (
+      <motion.div
+        key={event.year}
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.05 }}
+        className="p-4 rounded-2xl bg-card border border-border"
+      >
+        <span className="text-2xl font-extrabold text-gradient">{event.year}</span>
+        <h3 className="text-lg font-bold mt-1 mb-1">{event.title}</h3>
+        <p className="text-muted-foreground mb-1.5">{event.description}</p>
+        <span className="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-medium">
+          {event.highlight}
+        </span>
+      </motion.div>
+    ))}
+  </div>
+</section>
 
         {/* Team Section */}
         <section className="container mx-auto px-4 mb-24">
@@ -366,10 +385,10 @@ and continuous evolution.
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-sm font-semibold mb-4">
-              Meet the Experts
+            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-lg font-semibold mb-4">
+              Meet Our Team
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">The Team Behind Your Success</h2>
+            <h2 className="text-3xl md:text-5xl font-extrabold font-bold mb-4">The Team Behind Your Success</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               A diverse team of experts passionate about driving business growth.
             </p>
@@ -393,7 +412,7 @@ and continuous evolution.
             <div className="absolute inset-0 gradient-premium" />
             <div className="relative px-8 py-16 md:px-16 md:py-20 text-center">
               <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Ready to Join Our Success Stories?
+                Ready to Join Success Stories?
               </h2>
               <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto mb-8">
                 Let's discuss how we can help transform your business.

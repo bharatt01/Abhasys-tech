@@ -48,20 +48,24 @@ const Navbar = () => {
                 isScrolled ? "h-9" : "h-11"
               } group-hover:scale-105`}
             />
-            <span className="text-xl font-bold text-slate-100 tracking-wide">
+            <span
+              className={`text-2xl font-bold tracking-wide transition-colors duration-300 ${
+                isScrolled ? "text-white" : "text-indigo-600"
+              }`}
+            >
               Abhasys
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
               return (
                 <Link
                   key={link.path}
                   to={link.path}
-                  className={`text-sm font-medium transition-colors duration-200 ${
+                  className={`text-lg font-semibold transition-colors duration-200 ${
                     isActive
                       ? "text-indigo-500"
                       : "text-indigo-300 hover:text-indigo-700"
@@ -114,7 +118,7 @@ const Navbar = () => {
                     <Link
                       key={link.path}
                       to={link.path}
-                      className={`block py-3 px-4 rounded-xl text-base font-medium transition-colors ${
+                      className={`block py-3 px-4 rounded-xl text-lg font-semibold transition-colors ${
                         isActive
                           ? "bg-indigo-900/60 text-indigo-300"
                           : "text-slate-400 hover:bg-white/5"

@@ -9,30 +9,35 @@ const CTA = () => {
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section className="py-28 bg-white" ref={ref}>
+    <section className="py-8 bg-white" ref={ref}>
+
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
           className="
-            relative
+            relative overflow-hidden
             rounded-3xl
-            bg-emerald-900
+            bg-gradient-to-br from-emerald-700 via-teal-700 to-blue-800
             px-8 py-16 md:px-16 md:py-20
             text-center
-            shadow-[0_40px_100px_rgba(0,0,0,0.35)]
+            shadow-[0_50px_120px_rgba(0,0,0,0.45)]
           "
         >
+          {/* Glow background */}
+          <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-emerald-400/20 via-teal-400/10 to-blue-400/20 blur-3xl"></div>
+
           {/* Icon */}
           <motion.div
             initial={{ scale: 0 }}
             animate={isInView ? { scale: 1 } : {}}
             transition={{ duration: 0.4, delay: 0.2 }}
             className="
+              relative
               inline-flex items-center justify-center
               w-16 h-16 rounded-2xl
-              bg-white/15
+              bg-white/15 backdrop-blur-sm
               mb-8
             "
           >
@@ -40,22 +45,22 @@ const CTA = () => {
           </motion.div>
 
           {/* Heading */}
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-5">
+          <h2 className="relative text-3xl md:text-4xl lg:text-5xl font-extrabold text-white mb-5">
             Ready to Accelerate Your Growth?
           </h2>
 
           {/* Subtext */}
-          <p className="text-lg text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="relative text-lg text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
             We design and build high-performance digital systems focused on
             scalability, clarity, and real business outcomes — not visual noise.
           </p>
 
           {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="relative flex flex-col sm:flex-row items-center justify-center gap-4">
             <Button
               asChild
               size="xl"
-              className="bg-white text-emerald-900 hover:bg-white/90"
+              className="bg-white text-emerald-900 hover:bg-emerald-50 transition-all"
             >
               <Link to="/contact" className="gap-2">
                 Start a Project
@@ -63,14 +68,23 @@ const CTA = () => {
               </Link>
             </Button>
 
-            <Button
-              asChild
-              variant="outline"
-              size="xl"
-              className="border-white text-white hover:bg-white/10"
-            >
-              <Link to="/case-studies">View Case Studies</Link>
-            </Button>
+           <Button
+  asChild
+  variant="outline"
+  size="xl"
+  className="
+    border-white/80 
+    text-white 
+    bg-white/10
+    hover:bg-white/20 
+    hover:text-white
+    backdrop-blur-sm
+    transition-all
+  "
+>
+  <Link to="/case-studies">View Case Studies</Link>
+</Button>
+
           </div>
         </motion.div>
       </div>

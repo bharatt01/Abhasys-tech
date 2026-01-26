@@ -18,7 +18,7 @@ const projects = [
     link: "/work/project-2",
   },
   {
-    title: "Education Technology Suite",
+    title: "Medical Mission",
     category: "EdTech Platform",
     image: "/images/medicalmission.png",
     link: "/work/project-3",
@@ -30,26 +30,27 @@ const SelectedWork = () => {
   const isInView = useInView(ref, { once: true });
 
   return (
-    <section className="pb-16 bg-white">
+   <section className="pb-6 bg-white">
+
       <div ref={ref} className="container mx-auto px-4">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="max-w-3xl mb-16"
-        >
-          <h2 className="text-4xl md:text-6xl font-extrabold leading-tight text-black">
-            Projects That
-            <br />
-            Drove Real Growth
-          </h2>
+  initial={{ opacity: 0, y: 30 }}
+  animate={isInView ? { opacity: 1, y: 0 } : {}}
+  transition={{ duration: 0.6 }}
+  className="max-w-3xl mx-auto mb-16 text-center"
+>
+  <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-black">
+    Projects That
+    <br />
+    Drove Real Growth
+  </h2>
 
-          <p className="mt-5 text-lg text-neutral-600 max-w-xl">
-            A curated selection of projects showcasing how we design, build,
-            and scale digital products.
-          </p>
-        </motion.div>
+  <p className="mt-5 text-lg text-neutral-600 max-w-xl mx-auto">
+    A curated selection of projects showcasing how we design, build,
+    and scale digital products.
+  </p>
+</motion.div>
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
