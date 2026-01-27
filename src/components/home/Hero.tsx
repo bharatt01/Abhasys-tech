@@ -48,6 +48,10 @@ const useTypewriter = (
 
 const Hero = () => {
   const containerRef = useRef<HTMLElement>(null);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const [showVideo, setShowVideo] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -58,39 +62,70 @@ const Hero = () => {
   const textY = useTransform(scrollYProgress, [0, 1], [0, 80]);
   const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
 
-  const typedText = useTypewriter(
-    "Technology & Strategy"
-  );
+  const typedText = useTypewriter("Technology & Strategy");
+
+  /* ===========================
+     Lazy Load Video when visible
+  =========================== */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShowVideo(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.25 }
+    );
+
+    if (containerRef.current) observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
-  ref={containerRef}
-  className="
-    sticky top-0 
-    min-h-screen 
-    flex items-center 
-    pt-20 
-    overflow-hidden
-    z-10
-  "
->
-
+      ref={containerRef}
+      className="
+        sticky top-0 
+        min-h-screen 
+        flex items-center 
+        pt-20 
+        overflow-hidden
+        z-10
+      "
+    >
       {/* 🎥 Background Video */}
       <motion.div
         className="absolute inset-0 z-0 will-change-transform"
         style={{ y: backgroundY }}
       >
-        <video
-          className="absolute inset-0 w-full h-full object-cover"
-          src="/videos/hero.mp4"
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
-        />
+        {/* 🖼 Poster Image (instant load) */}
+        {!videoLoaded && (
+          <img
+            src="/images/hero-poster.jpg"
+            alt="Hero Background"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        )}
 
-        {/* ✅ Light Black Overlay */}
+        {/* 🎬 Lazy Loaded Video */}
+        {showVideo && (
+          <video
+            ref={videoRef}
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+              videoLoaded ? "opacity-100" : "opacity-0"
+            }`}
+            src="/videos/hero.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="none"
+            onLoadedData={() => setVideoLoaded(true)}
+          />
+        )}
+
+        {/* ✅ Dark Overlay */}
         <div className="absolute inset-0 bg-black/45" />
       </motion.div>
 
@@ -117,50 +152,18 @@ const Hero = () => {
         style={{ y: textY, opacity }}
       >
         <div className="max-w-5xl mx-auto text-center">
-          {/* 🔥 Typewriter Heading */}
-          <h1
-  className="
-    text-4xl sm:text-5xl md:text-6xl lg:text-7xl
-    font-extrabold leading-[1.05]
-    text-center tracking-tight text-white
-    mt-16   /* ⬅ shifts text downward */
-    mb-20
-  "
->
-  {/* LINE 1 */}
-  <div className="block mb-2">
-    Transforming Businesses
-  </div>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] text-white mt-16 mb-20">
+            <div className="block mb-2">Transforming Businesses</div>
 
-  {/* LINE 2 – VIA (accent color) */}
-  <div
-  className="
-    block
-    mb-3
-    text-indigo-400
-    text-2xl sm:text-3xl md:text-4xl
-    font-semibold
-    tracking-widest
-    uppercase
-    translate-y-3
-  "
->
-  Via
-</div>
+            <div className="block mb-3 text-indigo-400 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-widest uppercase translate-y-3">
+              Via
+            </div>
 
-
-  {/* LINE 3 – TYPEWRITER */}
-  <div className="relative inline-block">
-    {typedText}
-    <span
-      className="
-        inline-block w-[2px] h-[1em] ml-1 align-middle
-        bg-white/80
-        animate-[pulse_1.8s_ease-in-out_infinite]
-      "
-    />
-  </div>
-</h1>
+            <div className="relative inline-block">
+              {typedText}
+              <span className="inline-block w-[2px] h-[1em] ml-1 align-middle bg-white/80 animate-[pulse_1.8s_ease-in-out_infinite]" />
+            </div>
+          </h1>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
