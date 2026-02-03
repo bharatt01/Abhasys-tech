@@ -189,7 +189,8 @@ export default function Services() {
   </div>
 
   {/* Overlay Gradient */}
-  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-white" />
+  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent" />
+
 
   {/* Content */}
   <div className="relative container mx-auto px-4">
@@ -203,7 +204,8 @@ export default function Services() {
       <span className="text-neutral-300">Create Impact At Scale</span>
     </motion.h1>
 
-    <p className="mt-8 text-lg text-neutral-200 max-w-2xl mx-auto">
+    <p className="mt-10 text-xl text-black max-w-2xl mx-auto">
+
       We don’t just design, we execute systems that compound growth.
     </p>
   </div>

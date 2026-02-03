@@ -157,7 +157,7 @@ const Work = () => {
   </div>
 
   {/* Overlay Gradient */}
-  <div className="absolute inset-0 bg-gradient-to-b from-black/75 via-black/55 to-white" />
+  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent" />
 
   <div className="relative container mx-auto px-6">
     <motion.div
@@ -176,7 +176,7 @@ const Work = () => {
 
       <motion.p
         variants={fadeUp}
-        className="mt-8 text-xl text-neutral-200 max-w-2xl mx-auto"
+        className="mt-8 text-2xl text-neutral-200 max-w-2xl mx-auto"
       >
         A selection of work where strategy, design, and technology come
         together to create measurable business impact.
