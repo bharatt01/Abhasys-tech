@@ -194,6 +194,12 @@ export default function Services() {
 
   {/* Content */}
   <div className="relative container mx-auto px-4">
+  <div
+    className="max-w-4xl mx-auto text-center
+               bg-black/10 backdrop-blur-sm
+               rounded-3xl px-10 py-12
+               border border-white/10"
+  >
     <motion.h1
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
@@ -205,10 +211,11 @@ export default function Services() {
     </motion.h1>
 
     <p className="mt-10 text-xl text-black max-w-2xl mx-auto">
-
       We don’t just design, we execute systems that compound growth.
     </p>
   </div>
+</div>
+
 </section>
 
 
