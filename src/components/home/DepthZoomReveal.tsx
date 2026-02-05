@@ -80,8 +80,8 @@ const DepthZoomReveal = (): JSX.Element => {
 
           {/* CONTENT */}
           <div className="relative z-10 text-center px-12 text-white">
-            <span className="uppercase tracking-widest text-xs opacity-70">
-              Our Approach
+          <span className="inline-block px-4 py-1.5 rounded-full bg-white/10 text-white text-lg font-semibold mb-6">
+              About Us
             </span>
 
             <h1 className="text-5xl md:text-6xl font-extrabold mt-6 leading-tight">

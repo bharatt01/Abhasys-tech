@@ -160,29 +160,32 @@ const Work = () => {
   <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent" />
 
   <div className="relative container mx-auto px-6">
-    <motion.div
-      variants={staggerText}
-      initial="hidden"
-      animate="visible"
-      className="max-w-4xl mx-auto text-center"
+  <motion.div
+    variants={staggerText}
+    initial="hidden"
+    animate="visible"
+    className="max-w-4xl mx-auto text-center
+               bg-black/20 backdrop-blur-sm
+               rounded-3xl px-10 py-12"
+  >
+    <motion.h1
+      variants={fadeUp}
+      className="text-6xl md:text-7xl font-extrabold leading-tight text-white"
     >
-      <motion.h1
-        variants={fadeUp}
-        className="text-6xl md:text-7xl font-extrabold leading-tight text-white"
-      >
-        Projects That Turn <br />
-        <span className="text-neutral-300">Vision Into Results</span>
-      </motion.h1>
+      Projects That Turn <br />
+      <span className="text-neutral-300">Vision Into Results</span>
+    </motion.h1>
 
-      <motion.p
-        variants={fadeUp}
-        className="mt-8 text-2xl text-neutral-200 max-w-2xl mx-auto"
-      >
-        A selection of work where strategy, design, and technology come
-        together to create measurable business impact.
-      </motion.p>
-    </motion.div>
-  </div>
+    <motion.p
+      variants={fadeUp}
+      className="mt-8 text-2xl text-neutral-200 max-w-2xl mx-auto"
+    >
+      A selection of work where strategy, design, and technology come
+      together to create measurable business impact.
+    </motion.p>
+  </motion.div>
+</div>
+
 </section>
 
 

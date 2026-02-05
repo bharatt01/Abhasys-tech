@@ -265,7 +265,7 @@ const About = () => {
             </span>
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-heading mb-6">
               Building the Future of{" "}
-              <span className="text-gradient">Business</span>
+              <span className="text-gradient">Businesses</span>
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed">
            We are a technology and growth consultancy helping Indian businesses
