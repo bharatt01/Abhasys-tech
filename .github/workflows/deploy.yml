@@ -41,6 +41,6 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "build/*"
+          source: "dist/*"
           target: "/home/${{ secrets.HOSTINGER_USERNAME }}/domains/abhasys.com/public_html/"
           strip_components: 1
