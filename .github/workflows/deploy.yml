@@ -4,49 +4,43 @@ on:
   push:
     branches:
       - main
-      
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the repository
       - name: 🧩 Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      # Setup Node.js
       - name: ⚙️ Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 18
 
-      # Install dependencies
       - name: 📦 Install Dependencies
         run: npm install
 
-      # Build React app (CI disabled to prevent ESLint errors from failing build)
       - name: 🏗️ Build Project
         run: CI=false npm run build
 
-      # Clean old files on server
       - name: 🧹 Clean old files on server
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PUBLIC_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
             rm -rf /home/${{ secrets.HOSTINGER_USERNAME }}/domains/abhasys.com/public_html/*
 
-      # Deploy only the contents of build folder
       - name: 📤 Deploy to Hostinger via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PUBLIC_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "dist/*"
+          source: "build/*"
           target: "/home/${{ secrets.HOSTINGER_USERNAME }}/domains/abhasys.com/public_html/"
           strip_components: 1
