@@ -1,4 +1,4 @@
-name: 🚀 Deploy React App to Hostinger
+name: 🚀 Deploy Vite App to Hostinger
 
 on:
   push:
@@ -11,18 +11,18 @@ jobs:
 
     steps:
       - name: 🧩 Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: ⚙️ Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
       - name: 📦 Install Dependencies
         run: npm install
 
-      - name: 🏗️ Build Project
-        run: CI=false npm run build
+      - name: 🏗️ Build Vite Project
+        run: npm run build
 
       - name: 🧹 Clean old files on server
         uses: appleboy/ssh-action@v1.0.0
@@ -34,7 +34,7 @@ jobs:
           script: |
             rm -rf /home/${{ secrets.HOSTINGER_USERNAME }}/domains/abhasys.com/public_html/*
 
-      - name: 📤 Deploy to Hostinger via SCP
+      - name: 📤 Deploy dist folder to Hostinger
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
