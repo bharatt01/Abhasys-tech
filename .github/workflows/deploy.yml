@@ -41,12 +41,12 @@ jobs:
 
       # Deploy only the contents of build folder
       - name: 📤 Deploy to Hostinger via SCP
-        uses: appleboy/scp-action@v0.1.4
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PUBLIC_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: "dist/"
+          source: "dist/*"
           target: "/home/${{ secrets.HOSTINGER_USERNAME }}/domains/abhasys.com/public_html/"
           strip_components: 1
