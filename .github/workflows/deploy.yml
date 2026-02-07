@@ -30,9 +30,9 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
+          port: 22
           script: |
-            rm -rf /home/${{ secrets.HOSTINGER_USERNAME }}/domains/abhasys.com/public_html/*
+                     rm -rf /home/u341560007/domains/abhasys.com/public_html/*
 
       - name: 📤 Deploy dist folder to Hostinger
         uses: appleboy/scp-action@v0.1.7
@@ -42,5 +42,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
           source: "dist/*"
-          target: "/home/${{ secrets.HOSTINGER_USERNAME }}/domains/abhasys.com/public_html/"
+          target: "/home/u341560007/domains/abhasys.com/public_html/"
           strip_components: 1
