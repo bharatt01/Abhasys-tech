@@ -178,41 +178,42 @@ export default function Services() {
       {/* <CenterExpandReveal /> */}
 
       {/* HERO */}
-<section className="pt-36 pb-20 text-center relative overflow-hidden">
+<section className="mt-25 pt-56 pb-20 text-center relative overflow-hidden">  
   {/* Background Image */}
   <div className="absolute inset-0">
     <img
-      src="/images/services.jpg" // 👈 change image path
+      src="/images/services.png" // 👈 change image path
       alt="Services Background"
       className="w-full h-full object-cover"
     />
   </div>
 
   {/* Overlay Gradient */}
-  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent" />
+  {/* <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent" /> */}
 
 
   {/* Content */}
   <div className="relative container mx-auto px-4">
   <div
     className="max-w-4xl mx-auto text-center
-               bg-black/10 backdrop-blur-sm
+               
                rounded-3xl px-10 py-12
-               border border-white/10"
+               "
   >
-    <motion.h1
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      className="text-6xl md:text-7xl font-extrabold text-white"
-    >
-      Our Services That
-      <br />
-      <span className="text-neutral-300">Create Impact At Scale</span>
-    </motion.h1>
+  <motion.h1
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  className="text-6xl md:text-7xl font-extrabold text-white invisible"
+>
+  Our Services That
+  <br />
+  <span className="text-neutral-300">Create Impact At Scale</span>
+</motion.h1>
 
-    <p className="mt-10 text-xl text-black max-w-2xl mx-auto">
-      We don’t just design, we execute systems that compound growth.
-    </p>
+<p className="mt-10 text-xl text-black max-w-2xl mx-auto invisible">
+  We don’t just design, we execute systems that compound growth.
+</p>
+
   </div>
 </div>
 
