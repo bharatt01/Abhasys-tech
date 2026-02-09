@@ -7,6 +7,11 @@ import { Button } from "@/components/ui/button";
 const navLinks = [
   { name: "Home", path: "/" },
   { name: "About", path: "/about" },
+  {
+    name: "Customer Delight",
+    url: "https://customersdelight.com", // 🔗 external website
+    external: true,
+  },
   { name: "Services", path: "/services" },
   { name: "Our Work", path: "/our-work" },
 ];
@@ -61,6 +66,23 @@ const Navbar = () => {
           <div className="hidden md:flex items-center gap-10">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.path;
+
+              // External link
+              if (link.external) {
+                return (
+                  <a
+                    key={link.name}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-lg font-semibold text-indigo-300 hover:text-indigo-700 transition-colors duration-200"
+                  >
+                    {link.name}
+                  </a>
+                );
+              }
+
+              // Internal link
               return (
                 <Link
                   key={link.path}
@@ -114,6 +136,21 @@ const Navbar = () => {
               <div className="py-4 space-y-2">
                 {navLinks.map((link) => {
                   const isActive = location.pathname === link.path;
+
+                  if (link.external) {
+                    return (
+                      <a
+                        key={link.name}
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="block py-3 px-4 rounded-xl text-lg font-semibold text-slate-400 hover:bg-white/5"
+                      >
+                        {link.name}
+                      </a>
+                    );
+                  }
+
                   return (
                     <Link
                       key={link.path}

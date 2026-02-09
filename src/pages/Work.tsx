@@ -145,48 +145,43 @@ const Work = () => {
       <Navbar />
 
       {/* HERO */}
-      {/* HERO */}
-<section className="pt-36 pb-20 text-center relative overflow-hidden">
+<section className="mt-25 pt-56 pb-20 text-center relative overflow-hidden">
+  {/* ↑ increased from pt-36 → pt-44 for more gap */}
+
   {/* Background Image */}
   <div className="absolute inset-0">
     <img
-      src="/images/our-work.jpg" // 👈 change image path
+      src="/images/our-work.png"
       alt="Work Background"
-      className="w-full h-full object-cover"
+      className="w-full h-full obaject-cover"
     />
   </div>
 
   {/* Overlay Gradient */}
-  <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent" />
+  {/* <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent" /> */}
 
-  <div className="relative container mx-auto px-6">
-  <motion.div
-    variants={staggerText}
-    initial="hidden"
-    animate="visible"
-    className="max-w-4xl mx-auto text-center
-               bg-black/20 backdrop-blur-sm
-               rounded-3xl px-10 py-12"
-  >
-    <motion.h1
-      variants={fadeUp}
-      className="text-6xl md:text-7xl font-extrabold leading-tight text-white"
+  <div className="relative container mx-auto px-4">
+    <div
+      className="max-w-4xl mx-auto text-center
+                  rounded-3xl px-10 py-12"
     >
-      Projects That Turn <br />
-      <span className="text-neutral-300">Vision Into Results</span>
-    </motion.h1>
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="text-6xl md:text-7xl font-extrabold text-white invisible"
+      >
+        Our Services That
+        <br />
+        <span className="text-neutral-300">Create Impact At Scale</span>
+      </motion.h1>
 
-    <motion.p
-      variants={fadeUp}
-      className="mt-8 text-2xl text-neutral-200 max-w-2xl mx-auto"
-    >
-      A selection of work where strategy, design, and technology come
-      together to create measurable business impact.
-    </motion.p>
-  </motion.div>
-</div>
-
+      <p className="mt-10 text-xl text-black max-w-2xl mx-auto invisible">
+        We don’t just design, we execute systems that compound growth.
+      </p>
+    </div>
+  </div>
 </section>
+
 
 
     <section className="bg-white py-36">
