@@ -97,7 +97,7 @@ const ScrollOverlapSlides = (): JSX.Element => {
                 subtitle="The Challenge"
                 title="Most Websites Look Good — But Don’t Perform"
                 content="Many businesses invest in websites that look visually appealing but fail to attract traffic, retain users, or generate leads. Slow load times, poor structure, and unclear messaging often limit real growth, even when the product or service is strong."
-                image="/images/slide1.jpg"
+                image="/images/slide.png"
                 button="Why Performance Matters
 "
               />

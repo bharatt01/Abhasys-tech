@@ -144,45 +144,52 @@ const Work = () => {
     <>
       <Navbar />
 
-      {/* HERO */}
-<section className="mt-25 pt-56 pb-20 text-center relative overflow-hidden">
-  {/* ↑ increased from pt-36 → pt-44 for more gap */}
+ <section className="mt-25 pt-56 pb-20 text-center relative overflow-hidden">  
 
-  {/* Background Image */}
-  <div className="absolute inset-0">
-    <img
-      src="/images/our-work.png"
-      alt="Work Background"
-      className="w-full h-full obaject-cover"
-    />
+  {/* VIDEO BACKGROUND */}
+  <div className="absolute inset-0 overflow-hidden">
+    <video
+      autoPlay
+  loop
+  muted
+  playsInline
+  preload="none"
+      className="w-full h-full object-cover"
+    >
+      <source src="/videos/our-work.mp4" type="video/mp4" />
+    </video>
   </div>
 
-  {/* Overlay Gradient */}
-  {/* <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent" /> */}
-
+  {/* WHITE OVERLAY */}
+<div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/30 to-white/50" />
+  {/* CONTENT */}
   <div className="relative container mx-auto px-4">
-    <div
-      className="max-w-4xl mx-auto text-center
-                  rounded-3xl px-10 py-12"
-    >
-      <motion.h1
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-6xl md:text-7xl font-extrabold text-white invisible"
-      >
-        Our Services That
+   <div
+  className="max-w-4xl mx-auto text-center
+  bg-white/70 backdrop-blur-md
+  border border-white/40
+  shadow-2xl
+  rounded-3xl px-10 py-12"
+>
+      
+    <motion.h1
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  className="text-6xl md:text-7xl font-extrabold text-black drop-shadow-md"
+>
+        Projects That Turn 
         <br />
-        <span className="text-neutral-300">Create Impact At Scale</span>
+        <span className="text-neutral-700">Vision Into Results</span>
       </motion.h1>
 
-      <p className="mt-10 text-xl text-black max-w-2xl mx-auto invisible">
-        We don’t just design, we execute systems that compound growth.
+  <p className="mt-10 text-xl text-neutral-800 max-w-2xl mx-auto drop-shadow-sm">
+     A selection of work where strategy, design, and technology came together to create real business impact. From startups to enterprises, we help brands build digital products that perform, scale, and last.
+    
       </p>
+
     </div>
   </div>
 </section>
-
-
 
     <section className="bg-white py-36">
         <div className="container mx-auto px-6">

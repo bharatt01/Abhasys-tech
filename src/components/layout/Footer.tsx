@@ -34,7 +34,7 @@ const Footer = () => {
             </p>
 
             {/* Social Links (NO <a>) */}
-            <div className="flex gap-3">
+            {/* <div className="flex gap-3">
               <Link
                 to="/"
                 className="w-10 h-10 rounded-xl bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"
@@ -53,7 +53,7 @@ const Footer = () => {
               >
                 <Instagram className="w-4 h-4" />
               </Link>
-            </div>
+            </div> */}
           </div>
 
           {/* Quick Links */}
@@ -74,6 +74,16 @@ const Footer = () => {
                   </Link>
                 </li>
               ))}
+              <li>
+    <a
+      href="https://customersdelight.com"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-primary-foreground/70 text-sm hover:text-accent transition-colors"
+    >
+    Customers Delight
+    </a>
+  </li>
             </ul>
           </div>
 

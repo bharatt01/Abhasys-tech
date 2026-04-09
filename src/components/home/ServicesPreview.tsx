@@ -3,34 +3,33 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, Code2, Megaphone, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
 const services = [
   {
     icon: Code2,
-    title: "Technical Services",
+    title: "Strategic Business Solutions",
     description:
-      "Web & app development, SaaS maintenance, and custom software solutions built with cutting-edge technology.",
-    features: ["React/Next.js", "Mobile Apps", "SaaS Platforms"],
+      "We deliver strategic business solutions that help companies streamline operations, improve efficiency, and scale sustainably in competitive markets.",
+    features: ["Business Strategy", "Process Optimization", "Digital Transformation"],
     accent: "bg-black",
     iconBg: "bg-black",
     pill: "bg-black text-white",
   },
   {
     icon: Megaphone,
-    title: "Digital Growth",
+    title: "IT, Social Media and PR Solutions",
     description:
-      "Data-driven SEO, performance marketing, and social media strategies that deliver measurable results.",
-    features: ["SEO & SEM", "Performance Ads", "Social Media"],
+      "We combine IT, social media, and PR strategies to boost online visibility, strengthen brand presence, and drive consistent business growth.",
+    features: ["Web Development", "SEO & Marketing", "Brand PR"],
     accent: "bg-[#FF2E00]",
     iconBg: "bg-[#FF2E00]",
     pill: "bg-[#FF2E00] text-white",
   },
   {
     icon: Users,
-    title: "Physical Marketing",
+    title: "Education, Skill Development and HR Solutions",
     description:
-      "Offline branding, BTL activations, and consultancy services to strengthen your physical presence.",
-    features: ["BTL Activations", "Brand Identity", "Consultancy"],
+      "We provide education, skill development, and HR solutions to build talent, enhance workforce productivity, and create future-ready organizations.",
+    features: ["Training Programs", "HR Solutions", "Recruitment"],
     accent: "bg-[#0047FF]",
     iconBg: "bg-[#0047FF]",
     pill: "bg-[#0047FF] text-white",
@@ -108,13 +107,7 @@ const ServicesPreview = () => {
                   ))}
                 </div>
 
-                <Link
-                  to="/services"
-                  className="inline-flex items-center gap-2 font-bold text-black"
-                >
-                  Learn More
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
+            
               </div>
             </motion.div>
           ))}
