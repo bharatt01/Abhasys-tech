@@ -2,12 +2,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 
 const impacts = [
-  {
-    title: "Strategic Clarity That Aligns Teams",
-    description:
-      "We break down complex business goals into clear digital strategies, helping teams align faster, reduce friction, and execute with confidence.",
-    image: "/images/img1.jpg",
-  },
+ 
   {
     title: "Design Systems That Build Trust",
     description:
@@ -25,6 +20,12 @@ const impacts = [
     description:
       "Every improvement is guided by analytics, user behavior, and performance insights—ensuring smarter decisions and measurable business growth.",
     image: "/images/img4.jpg",
+  },
+   {
+    title: "Strategic Clarity That Aligns Teams",
+    description:
+      "We break down complex business goals into clear digital strategies, helping teams align faster, reduce friction, and execute with confidence.",
+    image: "/images/img1.jpg",
   },
 ];
 
