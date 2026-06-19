@@ -12,6 +12,7 @@ import Work from "./pages/Work";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import SmoothScrollProvider from "./components/layout/SmoothScrollProvider";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
       <Sonner />
 
       <BrowserRouter>
+      <SmoothScrollProvider>
         {/* 👇 GLOBAL SCROLL BUTTON */}
         <ScrollToTop />
 
@@ -33,6 +35,7 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </SmoothScrollProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

@@ -3,11 +3,10 @@ import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import MagnetButton from "@/components/ui/MagnetButton";
-import ParallaxSection from "@/components/ui/ParallaxSection";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, memo } from "react";
 
 /* ===========================
-   Typewriter Hook (Slow + 5s Pause)
+   Typewriter Hook (Optimized)
 =========================== */
 const useTypewriter = (
   text: string,
@@ -16,160 +15,132 @@ const useTypewriter = (
   delayBetween = 5000
 ) => {
   const [displayText, setDisplayText] = useState("");
-  const [index, setIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [phase, setPhase] = useState<"typing" | "waiting" | "deleting" | "done">("typing");
+  const indexRef = useRef(0);
 
   useEffect(() => {
-    let timeout: NodeJS.Timeout;
+    let timeout: ReturnType<typeof setTimeout>;
 
-    if (!isDeleting && index < text.length) {
-      timeout = setTimeout(() => {
-        setDisplayText(text.slice(0, index + 1));
-        setIndex(index + 1);
-      }, typingSpeed);
-    } else if (!isDeleting && index === text.length) {
-      timeout = setTimeout(() => {
-        setIsDeleting(true);
-      }, delayBetween);
-    } else if (isDeleting && index > 0) {
-      timeout = setTimeout(() => {
-        setDisplayText(text.slice(0, index - 1));
-        setIndex(index - 1);
-      }, deletingSpeed);
-    } else if (isDeleting && index === 0) {
-      setIsDeleting(false);
-    }
+    const tick = () => {
+      const i = indexRef.current;
 
+      if (phase === "typing") {
+        if (i < text.length) {
+          indexRef.current = i + 1;
+          setDisplayText(text.slice(0, i + 1));
+          timeout = setTimeout(tick, typingSpeed);
+        } else {
+          setPhase("waiting");
+          timeout = setTimeout(() => setPhase("deleting"), delayBetween);
+        }
+      } else if (phase === "deleting") {
+        if (i > 0) {
+          indexRef.current = i - 1;
+          setDisplayText(text.slice(0, i - 1));
+          timeout = setTimeout(tick, deletingSpeed);
+        } else {
+          setPhase("typing");
+          timeout = setTimeout(tick, 300);
+        }
+      }
+    };
+
+    timeout = setTimeout(tick, phase === "typing" ? typingSpeed : 0);
     return () => clearTimeout(timeout);
-  }, [text, index, isDeleting, typingSpeed, deletingSpeed, delayBetween]);
+  }, [phase, text, typingSpeed, deletingSpeed, delayBetween]);
 
   return displayText;
 };
 
+/* ===========================
+   Static Background (No Parallax on Video)
+=========================== */
+const VideoBackground = memo(() => {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="absolute inset-0 z-0">
+      {/* Low-res poster loads instantly */}
+      <img
+        src="/images/hero-poster.jpg"
+        alt=""
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+          loaded ? "opacity-0" : "opacity-100"
+        }`}
+        loading="eager"
+        fetchpriority="high"
+      />
+
+      {/* Video loads after */}
+      <video
+        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
+          loaded ? "opacity-100" : "opacity-0"
+        }`}
+        src="/videos/hero.mp4"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        poster="/images/hero-poster.jpg"
+        onLoadedData={() => setLoaded(true)}
+      />
+
+      {/* Single overlay — no transparency animation */}
+      <div className="absolute inset-0 bg-black/50" />
+    </div>
+  );
+});
+VideoBackground.displayName = "VideoBackground";
+
+/* ===========================
+   Hero Component
+=========================== */
 const Hero = () => {
   const containerRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const typedText = useTypewriter("Technology & Strategy");
 
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [showVideo, setShowVideo] = useState(false);
-
+  /* Light parallax on TEXT only — not on video */
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 80]);
-  const opacity = useTransform(scrollYProgress, [0, 0.65], [1, 0]);
-
-  const typedText = useTypewriter("Technology & Strategy");
-
-  /* ===========================
-     Lazy Load Video when visible
-  =========================== */
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setShowVideo(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.25 }
-    );
-
-    if (containerRef.current) observer.observe(containerRef.current);
-    return () => observer.disconnect();
-  }, []);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
 
   return (
     <section
       ref={containerRef}
-      className="
-        sticky top-0 
-        min-h-screen 
-        flex items-center 
-        pt-20 
-        overflow-hidden
-        z-10
-      "
+      className="relative min-h-[100dvh] flex items-center pt-20 overflow-hidden"
     >
-      {/* 🎥 Background Video */}
-      <motion.div
-        className="absolute inset-0 z-0 will-change-transform"
-        style={{ y: backgroundY }}
-      >
-        {/* 🖼 Poster Image (instant load) */}
-        {!videoLoaded && (
-          <img
-            src="/images/hero-poster.jpg"
-            alt="Hero Background"
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-        )}
+      {/* Static background — NO parallax transform */}
+      <VideoBackground />
 
-        {/* 🎬 Lazy Loaded Video */}
-        {showVideo && (
-          <video
-            ref={videoRef}
-            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-              videoLoaded ? "opacity-100" : "opacity-0"
-            }`}
-            src="/videos/hero.mp4"
-            autoPlay
-            muted
-            loop
-            playsInline
-            preload="none"
-            onLoadedData={() => setVideoLoaded(true)}
-          />
-        )}
-
-        {/* ✅ Dark Overlay */}
-        <div className="absolute inset-0 bg-black/45" />
-      </motion.div>
-
-      {/* 🎨 Parallax Blobs */}
-      <ParallaxSection
-        speed={0.2}
-        direction="up"
-        className="absolute top-24 right-10 w-80 h-80 z-0"
-      >
-        <div className="w-full h-full bg-primary/10 rounded-full blur-3xl" />
-      </ParallaxSection>
-
-      <ParallaxSection
-        speed={0.3}
-        direction="down"
-        className="absolute bottom-32 left-10 w-72 h-72 z-0"
-      >
-        <div className="w-full h-full bg-accent/10 rounded-full blur-3xl" />
-      </ParallaxSection>
-
-      {/* 📝 Content */}
+      {/* Content with light parallax */}
       <motion.div
         className="container mx-auto px-4 relative z-10"
         style={{ y: textY, opacity }}
       >
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] text-white mt-16 mb-20">
-            <div className="block mb-2">Transforming Businesses</div>
+            <span className="block mb-2">Transforming Businesses</span>
 
-            <div className="block mb-3 text-indigo-400 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-widest uppercase translate-y-3">
+            <span className="block mb-3 text-indigo-500 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-widest uppercase translate-y-3">
               Via
-            </div>
+            </span>
 
-            <div className="relative inline-block">
+            <span className="relative inline-block">
               {typedText}
-              <span className="inline-block w-[2px] h-[1em] ml-1 align-middle bg-white/80 animate-[pulse_1.8s_ease-in-out_infinite]" />
-            </div>
+              <span className="inline-block w-[2px] h-[1em] ml-1 align-middle bg-white/80 animate-pulse" />
+            </span>
           </h1>
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
             <MagnetButton strength={0.15}>
-              <Button asChild variant="cta" size="xl">
-                <Link to="/contact" className="gap-2">
+              <Button asChild size="xl" className="bg-indigo-500 text-white hover:bg-indigo-600 gap-2">
+                <Link to="/contact">
                   Start Your Growth Journey
                   <ArrowRight className="w-5 h-5" />
                 </Link>
@@ -181,9 +152,9 @@ const Hero = () => {
                 asChild
                 variant="outline"
                 size="xl"
-                className="bg-white/70 backdrop-blur-sm"
+                className="border-indigo-500 text-indigo-500 hover:bg-indigo-500 hover:text-white gap-2"
               >
-                <Link to="/services" className="gap-2">
+                <Link to="/services">
                   <Play className="w-4 h-4" />
                   Explore Services
                 </Link>
