@@ -1,12 +1,12 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowRight, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import MagnetButton from "@/components/ui/MagnetButton";
-import { useRef, useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useRef } from "react";
 
 /* ===========================
-   Typewriter Hook (Optimized)
+   Typewriter Hook
 =========================== */
 const useTypewriter = (
   text: string,
@@ -53,14 +53,13 @@ const useTypewriter = (
 };
 
 /* ===========================
-   Static Background (No Parallax on Video)
+   Video Background
 =========================== */
 const VideoBackground = memo(() => {
   const [loaded, setLoaded] = useState(false);
 
   return (
     <div className="absolute inset-0 z-0">
-      {/* Low-res poster loads instantly */}
       <img
         src="/images/hero-poster.jpg"
         alt=""
@@ -71,7 +70,6 @@ const VideoBackground = memo(() => {
         fetchpriority="high"
       />
 
-      {/* Video loads after */}
       <video
         className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
           loaded ? "opacity-100" : "opacity-0"
@@ -86,7 +84,6 @@ const VideoBackground = memo(() => {
         onLoadedData={() => setLoaded(true)}
       />
 
-      {/* Single overlay — no transparency animation */}
       <div className="absolute inset-0 bg-black/50" />
     </div>
   );
@@ -97,47 +94,55 @@ VideoBackground.displayName = "VideoBackground";
    Hero Component
 =========================== */
 const Hero = () => {
-  const containerRef = useRef<HTMLElement>(null);
   const typedText = useTypewriter("Technology & Strategy");
 
-  /* Light parallax on TEXT only — not on video */
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
-
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-[100dvh] flex items-center pt-20 overflow-hidden"
-    >
-      {/* Static background — NO parallax transform */}
+    <section className="relative min-h-[100dvh] flex items-center pt-20 overflow-hidden">
       <VideoBackground />
 
-      {/* Content with light parallax */}
       <motion.div
         className="container mx-auto px-4 relative z-10"
-        style={{ y: textY, opacity }}
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       >
         <div className="max-w-5xl mx-auto text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.05] text-white mt-16 mb-20">
-            <span className="block mb-2">Transforming Businesses</span>
+            <motion.span
+              className="block mb-2"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              Transforming Businesses
+            </motion.span>
 
-            <span className="block mb-3 text-indigo-500 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-widest uppercase translate-y-3">
+            <motion.span
+              className="block mb-3 text-indigo-500 text-2xl sm:text-3xl md:text-4xl font-semibold tracking-widest uppercase translate-y-3"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
               Via
-            </span>
+            </motion.span>
 
-            <span className="relative inline-block">
+            <motion.span
+              className="relative inline-block"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.6 }}
+            >
               {typedText}
               <span className="inline-block w-[2px] h-[1em] ml-1 align-middle bg-white/80 animate-pulse" />
-            </span>
+            </motion.span>
           </h1>
 
-          {/* CTAs */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+          <motion.div
+            className="flex flex-col sm:flex-row items-center justify-center gap-5"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
             <MagnetButton strength={0.15}>
               <Button asChild size="xl" className="bg-indigo-500 text-white hover:bg-indigo-600 gap-2">
                 <Link to="/contact">
@@ -160,7 +165,7 @@ const Hero = () => {
                 </Link>
               </Button>
             </MagnetButton>
-          </div>
+          </motion.div>
         </div>
       </motion.div>
     </section>

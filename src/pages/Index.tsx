@@ -31,7 +31,7 @@ const Index = () => {
        
         <ServicesPreview />
         <CurtainReveal />
-        <MomentumSection   />
+  
         
         <CTA />
         </div>

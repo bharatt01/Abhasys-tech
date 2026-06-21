@@ -1,4 +1,4 @@
-import { motion, useInView, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, memo, useState, useEffect } from "react";
 
 const impacts = [
@@ -67,9 +67,8 @@ const ScrambleText = memo(({ text, trigger, accentWord }: { text: string; trigge
     return () => clearInterval(interval);
   }, [trigger, text, hasAnimated]);
 
-  // Split to highlight accent word in indigo
   const parts = display.split(accentWord);
-  
+
   if (parts.length === 1) {
     return <span>{display}</span>;
   }
@@ -80,7 +79,7 @@ const ScrambleText = memo(({ text, trigger, accentWord }: { text: string; trigge
         <span key={i}>
           {part}
           {i < parts.length - 1 && (
-            <span className="text-indigo-500">{accentWord}</span>
+            <span className="text-indigo-600">{accentWord}</span>
           )}
         </span>
       ))}
@@ -90,59 +89,7 @@ const ScrambleText = memo(({ text, trigger, accentWord }: { text: string; trigge
 ScrambleText.displayName = "ScrambleText";
 
 /* ===========================
-   Magnetic Image
-=========================== */
-const MagneticImage = memo(({ src, alt }: { src: string; alt: string }) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-  const springX = useSpring(x, { stiffness: 150, damping: 15 });
-  const springY = useSpring(y, { stiffness: 150, damping: 15 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    x.set((e.clientX - centerX) * 0.1);
-    y.set((e.clientY - centerY) * 0.1);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      ref={ref}
-      className="relative overflow-hidden cursor-none"
-      style={{ x: springX, y: springY }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-    >
-      <motion.img
-        src={src}
-        alt={alt}
-        className="w-full h-full object-cover"
-        loading="lazy"
-        decoding="async"
-        whileHover={{ scale: 1.08 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      />
-      <motion.div
-        className="absolute inset-0 bg-white mix-blend-difference pointer-events-none"
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: [0, 0.3, 0, 0.2, 0], x: [-5, 5, -3, 0] }}
-        transition={{ duration: 0.3 }}
-      />
-    </motion.div>
-  );
-});
-MagneticImage.displayName = "MagneticImage";
-
-/* ===========================
-   Impact Card
+   Impact Card — Stacked / Overlapping Layout
 =========================== */
 const ImpactCard = memo(({ item, index }: { item: typeof impacts[0]; index: number }) => {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -153,87 +100,125 @@ const ImpactCard = memo(({ item, index }: { item: typeof impacts[0]; index: numb
     offset: ["start end", "end start"],
   });
 
-  const imageRotate = useTransform(scrollYProgress, [0, 1], [5, -5]);
-  const textX = useTransform(scrollYProgress, [0, 0.5, 1], [-100, 0, 100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0, 1, 1, 0]);
-
-  const isEven = index % 2 === 0;
+  const imageScale = useTransform(scrollYProgress, [0, 0.5, 1], [1.1, 1, 1.1]);
+  const textY = useTransform(scrollYProgress, [0, 1], [60, -60]);
+  const numberX = useTransform(scrollYProgress, [0, 1], [-100, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
 
   return (
     <motion.div
       ref={cardRef}
-      className="relative grid grid-cols-1 lg:grid-cols-2 gap-0 min-h-[70vh] lg:min-h-[80vh] border-t-2 border-black"
+      className="relative min-h-[85vh] lg:min-h-[90vh] flex items-center"
       style={{ opacity }}
     >
-      {/* Image Side */}
+      {/* Background number — massive, behind everything */}
       <motion.div
-        className={`relative overflow-hidden bg-black ${isEven ? "lg:order-1" : "lg:order-2"}`}
-        style={{ rotate: imageRotate }}
-        initial={{ clipPath: isEven ? "polygon(0 0, 0 0, 0 100%, 0 100%)" : "polygon(100% 0, 100% 0, 100% 100%, 100% 100%)" }}
-        animate={isInView ? { clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)" } : {}}
-        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
+        style={{ x: numberX }}
       >
-        <MagneticImage src={item.image} alt={item.title} />
-        <div className="absolute inset-0 pointer-events-none opacity-10 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px]" />
-      </motion.div>
-
-      {/* Content Side */}
-      <motion.div
-        className={`relative flex flex-col justify-center p-8 lg:p-16 xl:p-20 bg-white ${isEven ? "lg:order-2" : "lg:order-1"}`}
-        style={{ x: textX }}
-      >
-        <motion.div
-          className="absolute top-4 right-4 lg:top-8 lg:right-8 text-[100px] lg:text-[160px] font-black text-black/[0.04] leading-none select-none"
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.3 }}
+        <span 
+          className="text-[30vw] font-black text-black/[0.03] leading-none select-none whitespace-nowrap"
+          style={{ fontFamily: "'Courier New', monospace" }}
         >
           {String(index + 1).padStart(2, "0")}
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 60 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {/* Tag */}
-          <div className="flex items-center gap-3 mb-8">
-            <motion.div
-              className="h-[2px] bg-indigo-500"
-              initial={{ width: 0 }}
-              animate={isInView ? { width: 40 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 }}
-            />
-            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40">
-              0{index + 1} / 04
-            </span>
-          </div>
-
-          {/* Title with scramble + indigo accent word */}
-          <h3 className="text-3xl md:text-4xl lg:text-5xl font-black text-black leading-[1.05] mb-8">
-            <ScrambleText text={item.title} trigger={isInView} accentWord={item.accentWord} />
-          </h3>
-
-          {/* Description with indigo highlight on key phrase */}
-          <motion.p
-            className="text-sm md:text-base text-black/60 leading-relaxed max-w-md"
-            initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.8 }}
-          >
-            {item.description}
-          </motion.p>
-
-          {/* Animated border */}
-          <motion.div
-            className="mt-10 h-[1px] bg-black/20"
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : {}}
-            transition={{ duration: 1, delay: 1 }}
-            style={{ originX: 0 }}
-          />
-        </motion.div>
+        </span>
       </motion.div>
+
+      <div className="container mx-auto px-4 max-w-6xl relative">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-0 items-center">
+
+          {/* Image — offset left, overlapping */}
+          <motion.div
+            className="lg:col-span-7 lg:col-start-1 relative z-10"
+            initial={{ opacity: 0, x: -60 }}
+            animate={isInView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="relative overflow-hidden bg-black">
+              <motion.div style={{ scale: imageScale }}>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="w-full aspect-[16/10] object-cover"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </motion.div>
+              {/* Image overlay border */}
+              <div className="absolute inset-0 border border-white/10 pointer-events-none" />
+            </div>
+
+            {/* Floating index badge */}
+            <motion.div
+              className="absolute -top-4 -right-4 lg:-top-6 lg:-right-6 bg-indigo-600 text-white w-12 h-12 lg:w-16 lg:h-16 flex items-center justify-center"
+              initial={{ scale: 0, rotate: -90 }}
+              animate={isInView ? { scale: 1, rotate: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.5, type: "spring" }}
+            >
+              <span className="text-sm lg:text-lg font-black">{String(index + 1).padStart(2, "0")}</span>
+            </motion.div>
+          </motion.div>
+
+          {/* Content — offset right, overlapping image */}
+          <motion.div
+            className="lg:col-span-6 lg:col-start-7 lg:-ml-20 relative z-20"
+            style={{ y: textY }}
+            initial={{ opacity: 0, y: 40 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="bg-white p-8 lg:p-10 shadow-2xl shadow-black/5">
+              {/* Tag */}
+              <div className="flex items-center gap-3 mb-6">
+                <motion.div
+                  className="h-[2px] bg-indigo-600"
+                  initial={{ width: 0 }}
+                  animate={isInView ? { width: 32 } : {}}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                />
+                <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/30">
+                  Principle 0{index + 1}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h3 className="text-2xl md:text-3xl lg:text-4xl font-black text-black leading-[1.1] mb-5">
+                <ScrambleText text={item.title} trigger={isInView} accentWord={item.accentWord} />
+              </h3>
+
+              {/* Description */}
+              <motion.p
+                className="text-sm text-black/50 leading-[1.8]"
+                initial={{ opacity: 0 }}
+                animate={isInView ? { opacity: 1 } : {}}
+                transition={{ duration: 0.6, delay: 0.8 }}
+              >
+                {item.description}
+              </motion.p>
+
+              {/* Bottom accent */}
+              <div className="mt-8 flex items-center gap-4">
+                <motion.div
+                  className="h-px bg-black/10 flex-1"
+                  initial={{ scaleX: 0 }}
+                  animate={isInView ? { scaleX: 1 } : {}}
+                  transition={{ duration: 1, delay: 1 }}
+                  style={{ originX: 0 }}
+                />
+                <motion.div
+                  className="w-2 h-2 bg-indigo-600 rotate-45"
+                  initial={{ scale: 0 }}
+                  animate={isInView ? { scale: 1 } : {}}
+                  transition={{ duration: 0.4, delay: 1.2, type: "spring" }}
+                />
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Section divider line */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-black/5" />
     </motion.div>
   );
 });
@@ -246,134 +231,87 @@ const ImpactShowcase = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-80px" });
 
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springMouseX = useSpring(mouseX, { stiffness: 50, damping: 20 });
-  const springMouseY = useSpring(mouseY, { stiffness: 50, damping: 20 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    mouseX.set((e.clientX - window.innerWidth / 2) * 0.02);
-    mouseY.set((e.clientY - window.innerHeight / 2) * 0.02);
-  };
-
   return (
-    <section className="bg-white overflow-hidden" onMouseMove={handleMouseMove}>
+    <section className="bg-white overflow-hidden">
       {/* Header */}
-      <div ref={headerRef} className="container mx-auto px-4 max-w-6xl pt-24 pb-4 md:pt-32 md:pb-8">
-        <motion.div
-          className="relative"
-          style={{ x: springMouseX, y: springMouseY }}
-        >
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isHeaderInView ? { opacity: 1 } : {}}
-            transition={{ duration: 0.5 }}
-          >
-            {/* Eyebrow */}
-            <motion.div
-              className="flex items-center gap-4 mb-6"
-              initial={{ opacity: 0, x: -20 }}
-              animate={isHeaderInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="h-[1px] w-12 bg-indigo-500" />
-              <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-black/40">
-                Our Approach
-              </span>
-            </motion.div>
+      <div ref={headerRef} className="relative px-4 pt-24 pb-12 md:pt-36 md:pb-20">
+        <div className="max-w-5xl mx-auto">
+          {/* Eyebrow */}
+    
 
-            {/* Title */}
-            <h2 className="text-5xl md:text-7xl lg:text-8xl font-black text-black leading-[0.9] tracking-tighter">
-              {["How", "We", "Deliver"].map((word, i) => (
-                <motion.span
-                  key={word}
-                  className="inline-block mr-[0.25em]"
-                  initial={{ opacity: 0, y: 80, rotate: 5 }}
-                  animate={isHeaderInView ? { opacity: 1, y: 0, rotate: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.1 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-              <br />
-              {["Real", "Business"].map((word, i) => (
-                <motion.span
-                  key={word}
-                  className="inline-block mr-[0.25em]"
-                  initial={{ opacity: 0, y: 80, rotate: 5 }}
-                  animate={isHeaderInView ? { opacity: 1, y: 0, rotate: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.4 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                >
-                  {word}
-                </motion.span>
-              ))}
-              <br />
-              <motion.span
-                className="inline-block relative text-indigo-500"
-                initial={{ opacity: 0, y: 80, rotate: 5 }}
-                animate={isHeaderInView ? { opacity: 1, y: 0, rotate: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              >
-                Impact
-                <motion.div
-                  className="absolute -bottom-2 left-0 h-[8px] bg-indigo-500"
-                  initial={{ width: 0 }}
-                  animate={isHeaderInView ? { width: "100%" } : {}}
-                  transition={{ duration: 0.8, delay: 1 }}
-                />
-              </motion.span>
-            </h2>
-
-            <motion.p
-              className="mt-10 text-lg md:text-xl text-black/40 max-w-md leading-relaxed"
-              initial={{ opacity: 0, y: 20 }}
+          {/* Title */}
+          <h2 className="text-4xl text-center md:text-5xl lg:text-6xl font-black text-black leading-[0.95] tracking-tighter">
+            <motion.span
+              className="block"
+              initial={{ opacity: 0, y: 60 }}
               animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.8 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
             >
-              Strategy, design, and technology working together to create products
-              that <span className="text-indigo-500 font-semibold">perform</span>, scale, and last.
-            </motion.p>
-          </motion.div>
-        </motion.div>
+              We do not
+            </motion.span>
+            <motion.span
+              className="block text-indigo-600"
+              initial={{ opacity: 0, y: 60 }}
+              animate={isHeaderInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            >
+              ship mediocrity.
+            </motion.span>
+          </h2>
+
+          {/* Subtitle */}
+         
+        </div>
       </div>
 
-      {/* Cards */}
-      <div className="container mx-auto px-4 max-w-6xl pb-20 md:pb-28">
+      {/* Thick divider */}
+      <div className="max-w-6xl mx-auto px-4">
+        <motion.div 
+          className="h-[2px] bg-black"
+          initial={{ scaleX: 0 }}
+          animate={isHeaderInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 1.2, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          style={{ originX: 0 }}
+        />
+      </div>
+
+      {/* Cards — Overlapping stacked layout */}
+      <div className="relative">
         {impacts.map((item, index) => (
           <ImpactCard key={item.title} item={item} index={index} />
         ))}
       </div>
 
-      {/* Footer Quote */}
+      {/* Footer */}
       <motion.div
-        className="container mx-auto px-4 max-w-6xl pb-24"
+        className="max-w-4xl mx-auto px-4 pb-24 pt-12"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <div className="relative border-t-2 border-black pt-12">
+        <div className="relative border-t-2 border-black pt-10">
           <motion.div
-            className="absolute -top-[5px] left-0 w-3 h-3 bg-indigo-500"
-            initial={{ scale: 0, rotate: 0 }}
-            whileInView={{ scale: 1, rotate: 180 }}
+            className="absolute -top-[5px] left-0 w-2.5 h-2.5 bg-indigo-600 rotate-45"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
             transition={{ duration: 0.4, type: "spring" }}
             viewport={{ once: true }}
           />
-          <p className="text-2xl md:text-4xl font-black text-black max-w-2xl leading-tight">
-            Not just building products —{" "}
+          <p className="text-xl md:text-2xl font-black text-black max-w-lg leading-snug">
+            The work either{" "}
             <span className="relative inline-block">
-              building foundations
+              holds up
               <motion.span
-                className="absolute bottom-0 left-0 w-full h-[6px] bg"
+                className="absolute bottom-0 left-0 w-full h-[4px] bg-indigo-600/25"
                 initial={{ scaleX: 0 }}
                 whileInView={{ scaleX: 1 }}
                 transition={{ duration: 0.8, delay: 0.3 }}
                 viewport={{ once: true }}
                 style={{ originX: 0 }}
               />
-            </span>{" "}
-            for long-term <span className="text-indigo-500">growth</span>.
+            </span>
+            {" "}or it does not.
           </p>
         </div>
       </motion.div>

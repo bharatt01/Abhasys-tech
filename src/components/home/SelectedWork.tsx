@@ -63,7 +63,7 @@ const SelectedWork = () => {
               className="group"
             >
               <Link to={project.link} className="block h-full">
-                <div className="relative h-full border-2 border-black overflow-hidden transition-transform duration-300 group-hover:-translate-y-2">
+                <div className="relative h-full rounded-sm border-2 border-black overflow-hidden transition-transform duration-300 group-hover:-translate-y-2">
                   {/* Image */}
                   <div className="relative w-full bg-neutral-50">
                     <img

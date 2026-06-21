@@ -74,10 +74,10 @@ const ServicesPreview = () => {
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: index * 0.1 }}
             >
-              <div className="relative h-full border-2 border-black p-8 transition-transform hover:-translate-y-2">
+              <div className="relative h-full rounded-sm border-2 border-black p-8 transition-transform hover:-translate-y-2">
                 {/* Accent Bar */}
                 <div
-                  className={`absolute top-0 left-0 w-full h-2 ${service.accent}`}
+                  className={`absolute top-0 rounded-t-lg left-0 w-full h-2 ${service.accent}`}
                 />
 
                 {/* Icon */}
