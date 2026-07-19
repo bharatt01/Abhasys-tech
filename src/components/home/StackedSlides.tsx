@@ -105,7 +105,7 @@ const ScrollOverlapSlides = (): JSX.Element => {
   const slides = [
     {
       zIndex: 10,
-      bgClass: "bg-gradient-to-br from-[#a84b54] to-[#7a353c]",
+      bgClass: "bg-gradient-to-br from-[#a8d8ea] to-[#7ec8e3]",
       data: {
         subtitle: "The Challenge",
         title: "Most Websites Look Good — But Don't Perform",
@@ -117,7 +117,8 @@ const ScrollOverlapSlides = (): JSX.Element => {
     },
     {
       zIndex: 20,
-      bgClass: "bg-gradient-to-br from-[#f3eb83] to-[#c4bd5a]",
+        bgClass: "bg-gradient-to-br from-[#8ecae6] to-[#5b8fb0]",
+     
       data: {
         subtitle: "Our Philosophy",
         title: "Design and Development Must Work Together",
@@ -129,7 +130,7 @@ const ScrollOverlapSlides = (): JSX.Element => {
     },
     {
       zIndex: 30,
-      bgClass: "bg-gradient-to-br from-[#54aed3] to-[#3a7a99]",
+     bgClass: "bg-gradient-to-br from-[#4a6fa5] to-[#2c4870]",
       data: {
         subtitle: "Technology",
         title: "Modern, Performance-First Web Development",

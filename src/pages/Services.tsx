@@ -34,7 +34,7 @@ const sections = [
           "Custom Websites",
           "Web Development Company",
         ],
-        image: "https://picsum.photos/700/600?random=11",
+        image: "/images/web.jpg",
       },
       {
         icon: Smartphone,
@@ -49,7 +49,7 @@ const sections = [
           "Flutter",
           "iOS & Android",
         ],
-        image: "https://picsum.photos/700/600?random=12",
+        image: "/images/app.jpg",
       },
       {
         icon: Server,
@@ -64,7 +64,7 @@ const sections = [
           "Security",
           "DevOps",
         ],
-        image: "https://picsum.photos/700/600?random=13",
+        image: "/images/saas.jpg",
       },
     ],
   },
@@ -86,7 +86,7 @@ const sections = [
           "Google Ranking",
           "Organic Traffic",
         ],
-        image: "https://picsum.photos/700/600?random=21",
+        image: "/images/seo.jpg",
       },
       {
         icon: BarChart3,
@@ -101,7 +101,7 @@ const sections = [
           "Performance Marketing",
           "Lead Generation",
         ],
-        image: "https://picsum.photos/700/600?random=22",
+        image: "/images/performance.jpg",
       },
       {
         icon: Share2,
@@ -115,7 +115,7 @@ const sections = [
           "Instagram Marketing",
           "Content Strategy",
         ],
-        image: "https://picsum.photos/700/600?random=23",
+        image: "/images/socialmedia.jpg",
       },
     ],
   },
@@ -136,7 +136,7 @@ const sections = [
           "Brand Strategy",
           "Visual Identity",
         ],
-        image: "https://picsum.photos/700/600?random=31",
+        image: "/images/brand.jpg",
       },
       {
         icon: Layout,
@@ -150,7 +150,7 @@ const sections = [
           "Interface Design",
           "Product Design",
         ],
-        image: "https://picsum.photos/700/600?random=32",
+        image: "/images/ui-ux.jpg",
       },
       {
         icon: Lightbulb,
@@ -164,7 +164,7 @@ const sections = [
           "Brand Communication",
           "Creative Direction",
         ],
-        image: "https://picsum.photos/700/600?random=33",
+        image: "/images/creative.jpg",
       },
     ],
   },
@@ -178,52 +178,109 @@ export default function Services() {
       {/* <CenterExpandReveal /> */}
 
       {/* HERO */}
-<section className="mt-25 pt-56 pb-20 text-center relative overflow-hidden">  
-
-  {/* VIDEO BACKGROUND */}
+<section className="relative overflow-hidden bg-white pt-40 pb-32">
+  {/* Background Decorations */}
   <div className="absolute inset-0 overflow-hidden">
-    <video
-      autoPlay
-  loop
-  muted
-  playsInline
-  preload="none"
-      className="w-full h-full object-cover"
-    >
-      <source src="/videos/our-services.mp4" type="video/mp4" />
-    </video>
+    {/* Top Right Circle */}
+    <div className="absolute -top-40 -right-40 w-[500px] h-[500px] rounded-full bg-indigo-600/5 blur-3xl" />
+
+    {/* Bottom Left Circle */}
+    <div className="absolute -bottom-52 -left-40 w-[450px] h-[450px] rounded-full bg-indigo-600/5 blur-3xl" />
+
+    {/* Grid */}
+    <div
+      className="absolute inset-0 opacity-[0.03]"
+      style={{
+        backgroundImage: `
+          linear-gradient(to right, black 1px, transparent 1px),
+          linear-gradient(to bottom, black 1px, transparent 1px)
+        `,
+        backgroundSize: "80px 80px",
+      }}
+    />
   </div>
 
-  {/* WHITE OVERLAY */}
-<div className="absolute inset-0 bg-gradient-to-b from-white/0 via-white/30 to-white/50" />
-  {/* CONTENT */}
-  <div className="relative container mx-auto px-4">
-   <div
-  className="max-w-4xl mx-auto text-center
-  bg-white/70 backdrop-blur-md
-  border border-white/40
-  shadow-2xl
-  rounded-3xl px-10 py-12"
->
-      
-    <motion.h1
-  initial={{ opacity: 0, y: 30 }}
-  animate={{ opacity: 1, y: 0 }}
-  className="text-6xl md:text-7xl font-extrabold text-black drop-shadow-md"
->
-        Our Services That
-        <br />
-        <span className="text-neutral-700">Create Impact At Scale</span>
-      </motion.h1>
+  <div className="relative max-w-7xl mx-auto px-6 text-center">
 
-  <p className="mt-10 text-xl text-neutral-800 max-w-2xl mx-auto drop-shadow-sm">
-        We don’t just design, we execute systems that compound growth.
-      </p>
+    {/* Small Label */}
+   
+
+    {/* Heading */}
+    <motion.h1
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8 }}
+      className="text-5xl md:text-7xl lg:text-8xl font-black leading-[0.92] tracking-tight"
+    >
+      <span className="text-black">
+        Digital Solutions
+      </span>
+
+      <br />
+
+      <span className="text-indigo-600">
+        Built For Growth
+      </span>
+    </motion.h1>
+
+    {/* Description */}
+    <motion.p
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: .15 }}
+      className="mt-8 max-w-3xl mx-auto text-lg md:text-xl leading-8 text-gray-600"
+    >
+      From modern websites and powerful software to branding,
+      automation and digital marketing, we build technology that
+      helps businesses grow faster and operate smarter.
+    </motion.p>
+
+    {/* CTA Buttons */}
+    <motion.div
+      initial={{ opacity: 0, y: 25 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: .3 }}
+      className="mt-14 flex flex-col sm:flex-row justify-center gap-5"
+    >
+      <button className="px-8 py-4 rounded-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-all duration-300">
+        Explore Services
+      </button>
+
+      <button className="px-8 py-4 rounded-full border-2 border-indigo-600 text-indigo-600 font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-300">
+        View Portfolio
+      </button>
+    </motion.div>
+
+    {/* Stats */}
+    <div className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-10">
+
+      <div>
+        <h3 className="text-4xl font-black text-indigo-600">100+</h3>
+        <p className="mt-2 text-gray-600">Projects Delivered</p>
+      </div>
+
+      <div>
+        <h3 className="text-4xl font-black text-indigo-600">50+</h3>
+        <p className="mt-2 text-gray-600">Happy Clients</p>
+      </div>
+
+      <div>
+        <h3 className="text-4xl font-black text-indigo-600">15+</h3>
+        <p className="mt-2 text-gray-600">Technologies Used</p>
+      </div>
+
+      <div>
+        <h3 className="text-4xl font-black text-indigo-600">24/7</h3>
+        <p className="mt-2 text-gray-600">Support</p>
+      </div>
 
     </div>
+
   </div>
 </section>
-
 
       {/* SECTIONS */}
       {sections.map((section) => (
@@ -302,7 +359,7 @@ export default function Services() {
                             {service.tags.map((tag) => (
                               <span
                                 key={tag}
-                                className="px-3 py-1 text-xs font-bold bg-black text-white
+                                className="px-3 py-1 text-xs font-bold bg-black text-white rounded-[7px]
                                 group-hover:bg-white group-hover:text-black transition"
                               >
                                 {tag}

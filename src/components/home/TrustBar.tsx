@@ -70,7 +70,7 @@ const TrustBar = () => {
                 >
                   {/* Icon */}
                  <div
-  className={`w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden ${
+  className={`w-20 h-20 rounded-lg flex items-center justify-center overflow-hidden ${
     client.image ? "bg-white" : colors.box
   }`}
 >

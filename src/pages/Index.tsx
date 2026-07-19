@@ -8,12 +8,14 @@ import ServicesPreview from "@/components/home/ServicesPreview";
 import CTA from "@/components/home/CTA";
 import CenterExpandReveal from "@/components/home/CenterExpandReveal";
 import CurtainReveal from "@/components/home/CurtainReveal";
+import FaqSection from "@/components/home/FaqSection";
 import DepthZoomReveal from "@/components/home/DepthZoomReveal";
 import CapabilitiesShowcase from "@/components/home/MomentumSection";
 import FocusServices from "@/components/home/MomentumSection";
 import MomentumSection from "@/components/home/MomentumSection";
 import SelectedWork from "@/components/home/SelectedWork";
 import ImpactProcess from "@/components/home/ImpactProcess";
+import TechMarquee from "@/components/home/TechMarquee";
 
 const Index = () => {
   return (
@@ -30,10 +32,12 @@ const Index = () => {
         <ImpactProcess />
        
         <ServicesPreview />
+        <TechMarquee />
         <CurtainReveal />
   
-        
+        <FaqSection />
         <CTA />
+        
         </div>
       </main>
       <Footer />

@@ -98,12 +98,12 @@ const ServicesPreview = () => {
                 {/* Features */}
                 <div className="flex flex-wrap gap-2 mb-8">
                   {service.features.map((feature) => (
-                    <span
-                      key={feature}
-                      className={`px-3 py-1 text-sm font-bold ${service.pill}`}
-                    >
-                      {feature}
-                    </span>
+                   <span
+  key={feature}
+  className={`px-3 py-1 text-sm font-bold rounded-[7px] ${service.pill}`}
+>
+  {feature}
+</span>
                   ))}
                 </div>
 

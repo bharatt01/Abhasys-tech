@@ -8,6 +8,7 @@ const navLinks = [
   { name: "About", path: "/about" },
   { name: "Services", path: "/services" },
   { name: "Our Work", path: "/our-work" },
+  { name: "Tech Trends", path: "/tech-trends" },
 ];
 
 /* ===========================
@@ -149,7 +150,7 @@ const Navbar = () => {
                 size="lg"
                 className="bg-indigo-500 hover:bg-indigo-600 text-black font-bold shadow-[0_0_30px_rgba(212,160,23,0.35)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(212,160,23,0.5)]"
               >
-                <Link to="/contact">Get a Quote</Link>
+                <Link to="/contact">Let's Talk</Link>
               </Button>
             </div>
 

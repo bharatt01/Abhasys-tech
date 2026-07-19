@@ -76,19 +76,16 @@ const SelectedWork = () => {
                   </div>
 
                   {/* Content */}
-                  <div className="p-8 bg-white">
+                  <div className="p-6 bg-white">
                     <span className="text-sm font-semibold text-neutral-500">
                       {project.category}
                     </span>
 
-                    <h3 className="mt-2 text-2xl font-bold text-black">
+                    <h3 className="mt-1 text-2xl font-bold text-black">
                       {project.title}
                     </h3>
 
-                    <div className="mt-6 inline-flex items-center gap-2 font-bold text-black">
-                      View Case Study
-                      <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
-                    </div>
+                  
                   </div>
                 </div>
               </Link>
