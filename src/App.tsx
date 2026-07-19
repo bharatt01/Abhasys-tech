@@ -5,13 +5,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import ScrollToTop from "../src/components/layout/ScrollToTop"; // 👈 ADD THIS
-
+import BlogDetails from "./pages/BlogDetails";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import Work from "./pages/Work";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
 import NotFound from "./pages/NotFound";
+import TechTrends from "./pages/TechTrends";
+import SmoothScrollProvider from "./components/layout/SmoothScrollProvider";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,7 @@ const App = () => (
       <Sonner />
 
       <BrowserRouter>
+      <SmoothScrollProvider>
         {/* 👇 GLOBAL SCROLL BUTTON */}
         <ScrollToTop />
 
@@ -31,8 +34,18 @@ const App = () => (
           <Route path="/our-work" element={<Work />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+        <Route
+    path="/tech-trends"
+    element={<TechTrends />}
+/>
+{/* 
+<Route
+    path="/tech-trends/:slug"
+    element={<BlogDetails />}
+/> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </SmoothScrollProvider>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

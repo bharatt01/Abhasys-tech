@@ -260,9 +260,7 @@ const About = () => {
             transition={{ duration: 0.5 }}
             className="text-center max-w-4xl mx-auto"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-lg font-semibold mb-6">
-              About Us
-            </span>
+            
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-heading mb-6">
               Building the Future of{" "}
               <span className="text-gradient">Businesses</span>
@@ -334,10 +332,7 @@ technology, and sustainable growth outcomes across industries.
     className="text-center mb-4"
   >
     {/* <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-2"> */}
-   <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-lg font-semibold mb-6">
-            
-    Our  Journey
-    </span>
+   
     <h2 className="text-3xl md:text-5xl font-extrabold font-bold mb-2">
       From Startup to Industry Leader
     </h2>
@@ -385,9 +380,7 @@ technology, and sustainable growth outcomes across industries.
             viewport={{ once: true }}
             className="text-center mb-16"
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-accent/10 text-accent text-lg font-semibold mb-4">
-              Meet Our Team
-            </span>
+            
             <h2 className="text-3xl md:text-5xl font-extrabold font-bold mb-4">The Team Behind Your Success</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               A diverse team of experts passionate about driving business growth.
