@@ -6,6 +6,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import ScrollToTop from "../src/components/layout/ScrollToTop"; // 👈 ADD THIS
 import BlogDetails from "./pages/BlogDetails";
+import BlogsPage from "./pages/TechTrends";
+import Login from "./pages/superadmin/Login";
+import Dashboard from "./pages/superadmin/Dashboard";
+import CreateBlog from "./pages/superadmin/CreateBlog";
+import EditBlog from "./pages/superadmin/EditBlog";
+
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import Work from "./pages/Work";
@@ -14,6 +20,8 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import TechTrends from "./pages/TechTrends";
 import SmoothScrollProvider from "./components/layout/SmoothScrollProvider";
+import ProtectedRoute from "./components/ProtectedRoute";
+import BlogDetailPage from "./pages/BlogDetails";
 
 const queryClient = new QueryClient();
 
@@ -43,7 +51,40 @@ const App = () => (
     path="/tech-trends/:slug"
     element={<BlogDetails />}
 /> */}
+  <Route path="/tech-trends" element={<BlogsPage />} />
+        <Route path="/tech-trends/:slug" element={<BlogDetailPage />} />
+        
+        {/* Superadmin Auth */}
+        <Route path="/superadmin/login" element={<Login />} />
+        
+        {/* Protected Superadmin Routes */}
+        <Route
+          path="/superadmin/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/superadmin/create"
+          element={
+            <ProtectedRoute>
+              <CreateBlog />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/superadmin/edit/:id"
+          element={
+            <ProtectedRoute>
+              <EditBlog />
+            </ProtectedRoute>
+          }
+        />
+        
           <Route path="*" element={<NotFound />} />
+          
         </Routes>
         </SmoothScrollProvider>
       </BrowserRouter>

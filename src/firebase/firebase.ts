@@ -1,43 +1,28 @@
 import { initializeApp } from "firebase/app";
-import { 
-  getAuth 
-} from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
-import {
-  getFirestore
-} from "firebase/firestore";
-
-import {
-  getStorage
-} from "firebase/storage";
-
+import { getAnalytics } from "firebase/analytics";
 
 const firebaseConfig = {
-
-  apiKey: "YOUR_API_KEY",
-
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-
-  projectId: "YOUR_PROJECT_ID",
-
-  storageBucket: "YOUR_PROJECT.appspot.com",
-
-  messagingSenderId: "YOUR_ID",
-
-  appId: "YOUR_APP_ID"
-
+  apiKey: "AIzaSyDQ0JIFXPNplmn3aOLMb2oiTDLCMfazPWs",
+  authDomain: "abhasys-7d7f4.firebaseapp.com",
+  projectId: "abhasys-7d7f4",
+  storageBucket: "abhasys-7d7f4.firebasestorage.app",
+  messagingSenderId: "960511008213",
+  appId: "1:960511008213:web:e72704e7947183142ab15c",
+  measurementId: "G-PK15RHVKTE"
 };
 
-
+console.log("🔥 Initializing Firebase with config:", {
+  ...firebaseConfig,
+  apiKey: "***hidden***"
+});
 
 const app = initializeApp(firebaseConfig);
-
-
+console.log("🔥 Firebase app name:", app.name);
 
 export const auth = getAuth(app);
-
-
 export const db = getFirestore(app);
 
-
-export const storage = getStorage(app);
+console.log("🔥 Firestore db initialized:", db);
