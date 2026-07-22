@@ -14,7 +14,7 @@ import {
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CenterExpandReveal from "@/components/home/CenterExpandReveal";
-
+import { useNavigate } from "react-router-dom";
 const sections = [
   {
     label: "Technical Services",
@@ -172,6 +172,11 @@ const sections = [
 
 
 export default function Services() {
+  const navigate = useNavigate();
+  const handleExploreServices = () => {
+    navigate("/contact");
+  };
+
   return (
     <div className="bg-white overflow-hidden">
       <Navbar />
@@ -245,11 +250,8 @@ export default function Services() {
       transition={{ delay: .3 }}
       className="mt-14 flex flex-col sm:flex-row justify-center gap-5"
     >
-      <button className="px-8 py-4 rounded-full bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition-all duration-300">
-        Explore Services
-      </button>
-
-      <button className="px-8 py-4 rounded-full border-2 border-indigo-600 text-indigo-600 font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-300">
+  
+      <button onClick={handleExploreServices} className="px-8 py-4 rounded-full border-2 border-indigo-600 text-indigo-600 font-semibold hover:bg-indigo-600 hover:text-white transition-all duration-300">
         View Portfolio
       </button>
     </motion.div>

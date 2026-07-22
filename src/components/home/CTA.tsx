@@ -82,7 +82,7 @@ const CTA = () => {
     transition-all
   "
 >
-  <Link to="/case-studies">View Case Studies</Link>
+  <Link to="/our-work">View Case Studies</Link>
 </Button>
 
           </div>

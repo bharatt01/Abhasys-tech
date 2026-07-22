@@ -1,5 +1,6 @@
 import { motion, useInView, LazyMotion, domAnimation, AnimatePresence } from "framer-motion";
 import { useRef, memo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const faqs = [
   {
@@ -147,6 +148,10 @@ FAQItem.displayName = "FAQItem";
    Main Component
 =========================== */
 const FAQSection = () => {
+  const navigate = useNavigate();
+  const handleContactClick = () => {
+    navigate("/contact");
+  }
   const headerRef = useRef<HTMLDivElement>(null);
   const isHeaderInView = useInView(headerRef, { once: true, margin: "-80px" });
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -248,7 +253,7 @@ const FAQSection = () => {
               </span>
               ?
             </p>
-            <button className="shrink-0 px-6 py-3 bg-black text-white text-sm font-bold uppercase tracking-widest hover:bg-indigo-600 transition-colors duration-200">
+            <button onClick={handleContactClick} className="shrink-0 px-6 py-3 bg-black text-white text-sm font-bold uppercase tracking-widest hover:bg-indigo-600 transition-colors duration-200">
               Get in touch
             </button>
           </div>
