@@ -105,26 +105,26 @@ const ImpactCard = memo(({ item, index }: { item: typeof impacts[0]; index: numb
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
-            <div className="relative bg-black overflow-hidden">
-              <img
-                src={item.image}
-                alt={item.title}
-                className="w-full aspect-[4/3] object-cover"
-                loading="lazy"
-                decoding="async"
-              />
-              <div className="absolute inset-0 border border-white/10 pointer-events-none" />
-            </div>
+            <div className="relative overflow-hidden rounded-2xl shadow-lg bg-black">
+  <img
+    src={item.image}
+    alt={item.title}
+    className="block w-full aspect-[4/3] object-cover rounded-2xl"
+    loading="lazy"
+    decoding="async"
+  />
+  <div className="absolute inset-0 rounded-2xl border border-white/10 pointer-events-none" />
+</div>
 
             {/* Index Badge */}
-            <motion.div
-              className="absolute -top-3 -right-3 md:-top-4 md:-right-4 bg-indigo-600 text-white w-12 h-12 md:w-16 md:h-16 flex items-center justify-center"
+            {/* <motion.div
+              className="absolute top-4 right-4 md:top-5 md:right-5 bg-indigo-600 rounded-lg text-white w-12 h-12 md:w-16 md:h-16 flex items-center justify-center"
               initial={{ scale: 0 }}
               animate={isInView ? { scale: 1 } : {}}
               transition={{ duration: 0.4, delay: 0.3, type: "spring", stiffness: 200 }}
             >
               <span className="text-sm md:text-lg font-black">{String(index + 1).padStart(2, "0")}</span>
-            </motion.div>
+            </motion.div> */}
           </motion.div>
 
           {/* Content */}
