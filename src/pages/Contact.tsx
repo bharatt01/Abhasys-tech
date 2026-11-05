@@ -209,11 +209,11 @@ const Contact = () => {
                       href="mailto:contact@abhasys.com"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                     contact@abhasys.com
+                     contactabhasys@gmail.com
                     </a>
                   </div>
                 </div>
-
+ 
                 <div className="flex items-start gap-4 p-6 rounded-2xl bg-secondary/50 border border-border/50">
                   <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center shrink-0">
                     <Phone className="w-5 h-5 text-accent" />

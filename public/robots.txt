@@ -1,14 +1,38 @@
-User-agent: Googlebot
+User-agent: *
 Allow: /
+Disallow: /superadmin/
+
+# AI / LLM crawlers (allowed so your site can appear in AI answers)
+User-agent: GPTBot
+Allow: /
+Disallow: /superadmin/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /superadmin/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /superadmin/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /superadmin/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /superadmin/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /superadmin/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /superadmin/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /superadmin/
 
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: *
-Allow: /
+Sitemap: https://abhasys.com/sitemap.xml

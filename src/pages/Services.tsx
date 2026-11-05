@@ -260,12 +260,12 @@ export default function Services() {
     <div className="mt-24 grid grid-cols-2 md:grid-cols-4 gap-10">
 
       <div>
-        <h3 className="text-4xl font-black text-indigo-600">100+</h3>
+        <h3 className="text-4xl font-black text-indigo-600">20+</h3>
         <p className="mt-2 text-gray-600">Projects Delivered</p>
       </div>
 
       <div>
-        <h3 className="text-4xl font-black text-indigo-600">50+</h3>
+        <h3 className="text-4xl font-black text-indigo-600">15+</h3>
         <p className="mt-2 text-gray-600">Happy Clients</p>
       </div>
 
