@@ -118,6 +118,32 @@ const projects = [
     image:
       "/images/bankebihari.png",
   },
+  
+  {
+    id: "13",
+    title: "JKWA Development",
+    category: "Real Estate • Property Management",
+    description:
+      "A professional property dealing website designed to showcase property listings, connect buyers and sellers, and simplify property discovery.",
+    image: "/images/jkwadevelopment.png",
+  },
+  {
+    id: "14",
+    title: "AdmissionCouncel",
+    category: "Education • Study Abroad",
+    description:
+      "A student-focused platform helping aspiring students explore international universities, navigate admission processes, and pursue higher education abroad.",
+    image: "/images/admissioncouncel.png",
+  },
+  {
+    id: "15",
+    title: "Vishay Kaushal",
+    category: "Career Guidance • Counselling",
+    description:
+      "A career counselling platform empowering students with personalised guidance, career insights, and informed decisions about their academic and professional futures.",
+    image: "/images/vishaykaushal.png",
+  },
+
    
 ];
 

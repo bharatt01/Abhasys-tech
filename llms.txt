@@ -1,0 +1,30 @@
+# Abhasys
+
+> Abhasys is a business growth agency based in Faridabad, Haryana, India. We help Indian businesses grow through web and app development, SEO, performance marketing, social media marketing, branding and UI/UX design.
+
+Abhasys offers 360-degree digital growth solutions: technology, marketing and design under one roof. Website: https://abhasys.com
+
+## Main pages
+
+- [Home](https://abhasys.com/): Overview of Abhasys and what we do
+- [Services](https://abhasys.com/services): Full list of technology, marketing and design services
+- [Our Work](https://abhasys.com/our-work): Case studies and client projects
+- [About](https://abhasys.com/about): Our story, team and values
+- [Tech Trends (Blog)](https://abhasys.com/tech-trends): Articles on technology, SEO and digital marketing
+- [Contact](https://abhasys.com/contact): Get in touch for a project or quote
+
+## Services
+
+- Web Development, Mobile App Development, SaaS & System Maintenance
+- SEO Services, Performance Marketing, Social Media Marketing
+- Brand Identity Design, UI/UX Design, Creative Strategy & Direction
+
+## Contact
+
+- Email: contact@abhasys.com
+- Phone: +91 9717024896
+- Address: 171, Sector-22, Faridabad, Haryana, India 121005
+
+## Optional
+
+- [Sitemap](https://abhasys.com/sitemap.xml)

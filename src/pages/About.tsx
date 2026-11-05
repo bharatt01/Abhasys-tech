@@ -1,423 +1,413 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
-import { useRef } from "react";
+import { useId, useRef, useState } from "react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
 import { Link } from "react-router-dom";
-import { 
-  ArrowRight, 
-  Award, 
-  Users, 
-  Target, 
-  Lightbulb,
-  Linkedin,
-  Twitter,
-  Mail
-} from "lucide-react";
-import { User } from "lucide-react";
+import { ArrowDown, ArrowRight, ArrowUpRight, Linkedin, Twitter, Mail, User } from "lucide-react";
 
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import { Button } from "@/components/ui/button";
-import ParallaxSection from "@/components/ui/ParallaxSection";
 import ValuesPop from "@/components/home/Values";
 import DepthZoomReveal from "@/components/home/DepthZoomReveal";
+
+/* ------------------------------------------------------------------ */
+/* Content                                                             */
+/* ------------------------------------------------------------------ */
+
+const heroLines = ["We turn ambitious", "businesses into", "digital-first ones."];
+
+const keyFacts = [
+  { value: "20+", label: "projects delivered" },
+  { value: "15+", label: "clients served" },
+  // { value: "3", label: "offices across India" },
+];
+
+const capabilities = [
+  { name: "Websites and products", text: "Fast, high-converting websites and custom software built around how your customers buy." },
+  { name: "Performance marketing", text: "Campaigns tracked to revenue, so you know what to keep and what to stop paying for." },
+  { name: "SaaS maintenance", text: "Updates, fixes and monitoring that keep your product stable after launch." },
+  { name: "Offline branding", text: "On-ground activations and physical branding that match your online presence." },
+  { name: "Consultancy", text: "Practical advice on technology and growth for founders and leadership teams." },
+  { name: "AI solutions", text: "AI and LLM features and automations built into the tools your team uses daily." },
+];
+
+const statements = {
+  mission: {
+    label: "Our mission",
+    text: "Help startups, SMEs and enterprises use modern technology and performance marketing without the complexity or the cost.",
+    note: "We choose clear plans and careful execution over short-term tactics, so growth lasts.",
+  },
+  vision: {
+    label: "Our vision",
+    text: "Become the digital growth partner Indian businesses trust most.",
+    note: "Known for strategy-led design, dependable technology and results that last across industries.",
+  },
+} as const;
+
 const timelineEvents = [
-  {
-    year: "2021",
-    title: "The Beginning",
-    description: "Founded in Faridabad with a vision to transform Indian businesses through technology and strategy.",
-    highlight: "3 team members, 1 office",
-  },
-  {
-    year: "2022",
-    title: "First Major Win",
-    description: "Secured our first enterprise client and expanded digital marketing services.",
-    highlight: "50+ projects delivered",
-  },
-  {
-    year: "2023",
-    title: "Going Remote-First",
-    description: "Pivoted to remote operations, expanded team across India, and launched SaaS maintenance vertical.",
-    highlight: "100+ clients served",
-  },
-  {
-    year: "2024",
-    title: "Physical Marketing Launch",
-    description: "Introduced BTL activations and offline branding services to offer 360° solutions.",
-    highlight: "25 team members",
-  },
-  {
-    year: "2025",
-    title: "National Expansion",
-    description: "Opened offices in Mumbai and Bangalore, launched consultancy services.",
-    highlight: "300+ projects milestone",
-  },
-  {
-    year: "2026",
-    title: "AI Integration",
-    description: "Integrated AI/LLM capabilities into our tech stack, pioneering AI-first solutions.",
-    highlight: "500+ successful projects",
-  },
+  { year: "2022", title: "Professional team, one office", description: "We started in Faridabad with one belief: Indian businesses grow faster when strategy, design and technology come from one team.", highlight: "Professional team" },
+  { year: "2023", title: "Our first enterprise client", description: "An enterprise team trusted us with a full engagement. We added digital marketing and shipped over 50 projects.", highlight: "20+ projects" },
+  { year: "2024", title: "Remote-first, across India", description: "We moved to remote work, hired from across the country, and launched SaaS maintenance for products that need steady care.", highlight: "15+ clients" },
+  // { year: "2024", title: "From screens to streets", description: "We added on-ground activations and offline branding, so one campaign can run across digital and physical channels.", highlight: "25 team members" },
+  { year: "2025", title: "Delhi NCR Based", description: "We opened two new offices and started advising leadership teams on technology and growth.", highlight: "20+ projects" },
+  { year: "2026", title: "AI built into how we work", description: "AI and LLM capabilities now sit inside our tech stack, helping clients automate work and ship smarter products.", highlight: "10+ projects" },
 ];
 
 const teamMembers = [
-  
-  {
-    name: "Bharat Sharma",
-    role: "Founder",
-    image: "/images/Founder.jpg",
-    bio: "Business development expert with deep enterprise sales experience.",
-    linkedin: "#",
-    twitter: "#",
-  },
-  {
-    name: "Abhishek Rawat",
-    role: "Web Developer",
-    image: "/images/Technical-Head.jpg",
-    bio: "Strategy consultant helping businesses optimize operations and scale.",
-    linkedin: "#",
-    twitter: "#",
-  },
-  {
-    name: "Bhavesh Gupta",
-    role: "Business Head",
-    image: "/images/founder5.png",
-    bio: "Award-winning designer specializing in brand identity and UX design.",
-    linkedin: "#",
-    twitter: "#",
-  },
+  { name: "Bharat Sharma", role: "Founder", image: "/images/Founder.jpg", bio: "Leads business development and enterprise partnerships, and sets the company's direction." },
+  { name: "Abhishek Rawat", role: "Web Developer", image: "/images/Technical-Head.jpg", bio: "Builds fast, reliable websites and web apps, from prototype to production." },
+  { name: "Bhavesh Gupta", role: "Business Head", image: "/images/founder5.png", bio: "Turns client goals into plans, and plans into results." },
 ];
 
-const iconStyles = [
-  {
-    bg: "bg-emerald-100",
-    text: "text-emerald-700",
-    hoverBg: "group-hover:bg-emerald-600",
-  },
-  {
-    bg: "bg-orange-100",
-    text: "text-orange-700",
-    hoverBg: "group-hover:bg-orange-600",
-  },
-  {
-    bg: "bg-purple-100",
-    text: "text-purple-700",
-    hoverBg: "group-hover:bg-purple-600",
-  },
-  {
-    bg: "bg-rose-100",
-    text: "text-rose-700",
-    hoverBg: "group-hover:bg-rose-600",
-  },
-];
+// Set to true to show the team section.
+const SHOW_TEAM = false;
 
-const values = [
-  {
-    icon: Target,
-    title: "Results-Driven",
-    description: "We measure success by the impact we create for our clients' businesses.",
-  },
-  {
-    icon: Lightbulb,
-    title: "Innovation First",
-    description: "We embrace cutting-edge technologies and creative approaches.",
-  },
-  {
-    icon: Users,
-    title: "Client Partnership",
-    description: "We build lasting relationships based on trust and transparency.",
-  },
-  {
-    icon: Award,
-    title: "Excellence",
-    description: "We deliver quality in every project, big or small.",
-  },
-];
+/* ------------------------------------------------------------------ */
+/* Pieces                                                              */
+/* ------------------------------------------------------------------ */
 
-const TimelineItem = ({ 
-  event, 
-  index 
-}: { 
-  event: typeof timelineEvents[0]; 
-  index: number;
-}) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const isEven = index % 2 === 0;
-
+/** Rotating text badge that sits on the hero. */
+const SpinBadge = () => {
+  const id = useId();
+  const reduce = useReducedMotion();
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: isEven ? -50 : 50 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-     
-     className={`flex items-center gap-6 ${isEven ? "flex-row" : "flex-row-reverse"} mb-9 last:mb-0`}
->
-      <div className={`flex-1 ${isEven ? "text-right" : "text-left"}`}>
-        <div className={`inline-block p-6 rounded-3xl bg-card border border-border shadow-card hover:shadow-lift transition-all duration-300 ${isEven ? "ml-auto" : "mr-auto"}`}>
-          <span className="text-4xl font-extrabold text-gradient">{event.year}</span>
-          <h3 className="text-xl font-bold mt-2 mb-2">{event.title}</h3>
-          <p className="text-muted-foreground mb-3">{event.description}</p>
-          <span className="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-medium">
-            {event.highlight}
-          </span>
-        </div>
-      </div>
-     <div className="relative">
-  <div className="w-4 h-4 rounded-full bg-gradient-to-br from-pink-500 to-purple-500 shadow-[0_0_16px_rgba(168,85,247,0.6)] z-10 relative" />
-  {index < timelineEvents.length - 1 && (
-    <div className="absolute top-4 left-1/2 -translate-x-1/2 w-[2px] h-24 bg-gradient-to-b from-purple-400 to-transparent" />
-  )}
-</div>
-
-      
-      <div className="flex-1" />
-    </motion.div>
+    <a
+      href="#story"
+      aria-label="Scroll to our story"
+      className="relative hidden h-36 w-36 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground md:flex"
+    >
+      <motion.svg
+        viewBox="0 0 120 120"
+        className="absolute inset-0 h-full w-full"
+        animate={reduce ? undefined : { rotate: 360 }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+        aria-hidden
+      >
+        <defs>
+          <path id={id} d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" />
+        </defs>
+        <text className="fill-current text-[11px] font-semibold" letterSpacing="2.6">
+          <textPath href={`#${id}`}>Faridabad • Since 2022 •</textPath>
+        </text>
+      </motion.svg>
+      <ArrowDown className="h-7 w-7" aria-hidden />
+    </a>
   );
 };
 
-const TeamCard = ({ 
-  member, 
-  index 
-}: { 
-  member: typeof teamMembers[0]; 
-  index: number;
-}) => {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
-
+/** Endless scrolling band of capabilities. */
+const Marquee = () => {
+  const reduce = useReducedMotion();
+  const items = [...capabilities, ...capabilities];
   return (
+   <div className="overflow-hidden py-20 md:py-32">
+  <div className="-rotate-6 scale-105 bg-primary py-5 text-primary-foreground">
     <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="group"
+      className="flex w-max gap-10 whitespace-nowrap"
+      animate={reduce ? undefined : { x: ["-50%", "10%"] }}
+      transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
     >
-      <div className="relative overflow-hidden rounded-3xl bg-card border border-border shadow-card hover:shadow-lift transition-all duration-500 hover:-translate-y-2">
-    <div className="h-[380px] overflow-hidden">
-  <div className="h-[380px] overflow-hidden flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 relative">
-  <img
-    src={member.image}
-    alt={member.name}
-    onError={(e) => {
-      e.currentTarget.style.display = "none";
-      const icon = e.currentTarget.nextElementSibling as HTMLElement;
-      if (icon) icon.style.display = "flex";
-    }}
-    className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
-  />
-
-  {/* Fallback Icon */}
-  <div className="hidden absolute inset-0 items-center justify-center">
-    <User className="w-20 h-20 text-gray-400" />
+      {items.map((c, i) => (
+        <span key={i} className="flex items-center gap-10 text-3xl font-extrabold tracking-tight md:text-5xl">
+          {c.name}
+          <span aria-hidden className="text-primary-foreground/50">✦</span>
+        </span>
+      ))}
+    </motion.div>
   </div>
 </div>
+  );
+};
 
+/** Mission / vision toggle. */
+const Statement = () => {
+  const [tab, setTab] = useState<keyof typeof statements>("mission");
+  const s = statements[tab];
+  return (
+    <section className="bg-foreground text-background">
+      <div className="container mx-auto px-4 py-20 md:py-28">
+        <div role="tablist" className="mb-10 inline-flex rounded-full border border-background/25 p-1">
+          {(Object.keys(statements) as (keyof typeof statements)[]).map((k) => (
+            <button
+              key={k}
+              role="tab"
+              aria-selected={tab === k}
+              onClick={() => setTab(k)}
+              className={`rounded-full px-5 py-2 text-sm font-semibold transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-background ${
+                tab === k ? "bg-background text-foreground" : "text-background/70 hover:text-background"
+              }`}
+            >
+              {statements[k].label}
+            </button>
+          ))}
+        </div>
 
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/90 via-foreground/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          
-          {/* Hover Content */}
-          <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-            <p className="text-primary-foreground/80 text-sm mb-4">{member.bio}</p>
-            <div className="flex gap-3">
-              <a href={member.linkedin} className="w-9 h-9 rounded-full bg-primary-foreground/20 flex items-center justify-center hover:bg-primary transition-colors">
-                <Linkedin className="w-4 h-4 text-primary-foreground" />
-              </a>
-              <a href={member.twitter} className="w-9 h-9 rounded-full bg-primary-foreground/20 flex items-center justify-center hover:bg-primary transition-colors">
-                <Twitter className="w-4 h-4 text-primary-foreground" />
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full bg-primary-foreground/20 flex items-center justify-center hover:bg-primary transition-colors">
-                <Mail className="w-4 h-4 text-primary-foreground" />
-              </a>
+        <div className="min-h-[18rem] md:min-h-[22rem]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={tab}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -24 }}
+              transition={{ duration: 0.35 }}
+            >
+              <p className="max-w-5xl text-3xl font-bold leading-[1.1] tracking-tight md:text-6xl">{s.text}</p>
+              <p className="mt-8 max-w-2xl text-lg text-background/70">{s.note}</p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+/** Hover-reveal list of what we do. */
+const Capabilities = () => (
+  <section className="container mx-auto px-4 py-24">
+    <h2 className="mb-12 max-w-2xl text-3xl font-extrabold tracking-tight md:text-5xl">
+      One team for the whole journey
+    </h2>
+    <ul>
+      {capabilities.map((c) => (
+        <li
+          key={c.name}
+          tabIndex={0}
+          className="group flex flex-col gap-3 border-t border-border py-7 outline-none last:border-b focus-visible:bg-muted md:flex-row md:items-center md:justify-between md:gap-10"
+        >
+          <h3 className="flex items-center gap-4 text-3xl font-bold tracking-tight text-foreground/50 transition-all duration-300 group-hover:translate-x-3 group-hover:text-primary group-focus-visible:text-primary md:text-5xl">
+            {c.name}
+            <ArrowUpRight className="h-7 w-7 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100 md:h-10 md:w-10" aria-hidden />
+          </h3>
+          <p className="max-w-sm text-muted-foreground transition-all duration-300 md:translate-x-4 md:opacity-0 md:group-hover:translate-x-0 md:group-hover:opacity-100 md:group-focus-visible:translate-x-0 md:group-focus-visible:opacity-100">
+            {c.text}
+          </p>
+        </li>
+      ))}
+    </ul>
+  </section>
+);
+
+/** The memorable piece: a giant year that changes as you scroll. */
+const ScrollTimeline = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(0);
+  const n = timelineEvents.length;
+
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
+  const barScale = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    setActive(Math.min(n - 1, Math.max(0, Math.floor(v * n))));
+  });
+
+  const e = timelineEvents[active];
+
+  return (
+    <div ref={ref} className="relative" style={{ height: `${n * 60 + 40}vh` }}>
+      <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+        <div className="container mx-auto px-4 pt-16">
+          <div className="grid items-center gap-6 md:grid-cols-2 md:gap-12">
+            <div className="overflow-hidden">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={e.year}
+                  initial={{ y: "70%", opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  exit={{ y: "-70%", opacity: 0 }}
+                  transition={{ duration: 0.35 }}
+                  className="text-[26vw] font-black leading-[0.9] tracking-tighter text-primary md:text-[14rem]"
+                  aria-live="polite"
+                >
+                  {e.year}
+                </motion.p>
+              </AnimatePresence>
+            </div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={e.year}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.3 }}
+                className="min-h-[15rem]"
+              >
+                <h3 className="mb-4 text-3xl font-bold tracking-tight md:text-4xl">{e.title}</h3>
+                <p className="mb-6 max-w-lg text-lg leading-relaxed text-muted-foreground">{e.description}</p>
+                <span className="inline-block rounded-full bg-accent px-5 py-2 text-lg font-bold text-accent-foreground">
+                  {e.highlight}
+                </span>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Progress */}
+          <div className="mt-10">
+            <div className="relative h-1 rounded-full bg-border">
+              <motion.div className="absolute inset-y-0 left-0 w-full origin-left rounded-full bg-primary" style={{ scaleX: barScale }} />
+            </div>
+            <div className="mt-3 flex justify-between text-sm font-semibold">
+              {timelineEvents.map((t, i) => (
+                <span key={t.year} className={i === active ? "text-primary" : "text-muted-foreground"}>
+                  {t.year}
+                </span>
+              ))}
             </div>
           </div>
         </div>
-        
-        <div className="p-6">
-          <h3 className="text-lg font-bold">{member.name}</h3>
-          <p className="text-primary font-medium">{member.role}</p>
-        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 
+const TeamCard = ({ member }: { member: (typeof teamMembers)[number] }) => (
+  <article>
+    <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-muted">
+      <img
+        src={member.image}
+        alt={`Portrait of ${member.name}`}
+        loading="lazy"
+        onError={(ev) => {
+          ev.currentTarget.style.display = "none";
+          const f = ev.currentTarget.nextElementSibling as HTMLElement | null;
+          if (f) f.style.display = "flex";
+        }}
+        className="h-full w-full object-cover object-top"
+      />
+      <div className="absolute inset-0 hidden items-center justify-center">
+        <User className="h-16 w-16 text-muted-foreground" aria-hidden />
+      </div>
+    </div>
+    <h3 className="mt-4 text-lg font-bold">{member.name}</h3>
+    <p className="font-medium text-primary">{member.role}</p>
+    <p className="mt-2 max-w-sm text-sm text-muted-foreground">{member.bio}</p>
+    <div className="mt-3 flex gap-2">
+      {[Linkedin, Twitter, Mail].map((Icon, i) => (
+        <a key={i} href="#" aria-label="Social link" className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted-foreground transition-colors hover:border-primary hover:text-primary">
+          <Icon className="h-4 w-4" />
+        </a>
+      ))}
+    </div>
+  </article>
+);
+
+/* ------------------------------------------------------------------ */
+/* Page                                                                */
+/* ------------------------------------------------------------------ */
+
 const About = () => {
-  const heroRef = useRef(null);
-  const heroInView = useInView(heroRef, { once: true });
+  const reduce = useReducedMotion();
 
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <main className="pt-32 pb-24">
-        {/* Hero Section */}
-        <section ref={heroRef} className="container mx-auto px-4 mb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={heroInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-4xl mx-auto"
-          >
-            
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-heading mb-6">
-              Building the Future of{" "}
-              <span className="text-gradient">Businesses</span>
+      <main>
+        {/* Hero */}
+        <section className="relative overflow-hidden pb-20 pt-36">
+          <div aria-hidden className="pointer-events-none absolute -right-32 top-10 h-[28rem] w-[28rem] rounded-full bg-primary/15 blur-3xl" />
+          <div aria-hidden className="pointer-events-none absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-accent/20 blur-3xl" />
+
+          <div className="container relative mx-auto px-4">
+            <h1 className="max-w-5xl text-5xl font-black leading-[1] tracking-tighter md:text-8xl">
+              {heroLines.map((line, i) => (
+                <span key={line} className="block overflow-hidden pb-2">
+                  <motion.span
+                    className="block"
+                    initial={reduce ? false : { y: "110%" }}
+                    animate={{ y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.1 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                  >
+                    {line}
+                  </motion.span>
+                </span>
+              ))}
             </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">
-           We are a technology and growth consultancy helping Indian businesses
-build scalable digital products, high-converting websites, and
-data-driven marketing systems that deliver measurable results.
 
-            </p>
-          </motion.div>
-        </section>
-
-        {/* Vision Cards */}
-        <section className="container mx-auto px-4 mb-24">
-          <div className="grid md:grid-cols-2 gap-8">
-            <ParallaxSection speed={0.1}>
-              <motion.div
-                initial={{ opacity: 0, x: -30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                className="relative h-full p-8 md:p-12 rounded-3xl bg-gradient-to-br from-primary to-primary/80 text-primary-foreground overflow-hidden"
-              >
-                <div className="absolute top-0 right-0 w-64 h-64 bg-primary-foreground/10 rounded-full blur-3xl" />
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 relative z-10">Our Mission</h2>
-                <p className="text-lg text-primary-foreground/90 relative z-10 leading-relaxed">
-               Our mission is to help Indian startups, SMEs, and enterprises adopt
-modern technology, performance-driven marketing, and scalable systems
-without complexity or unnecessary cost.
-
-We focus on clarity, execution, and long-term growth — not short-term
-tactics.
-
+            <div className="mt-10 flex flex-col justify-between gap-10 md:flex-row md:items-end">
+              <div className="max-w-xl">
+                <p className="mb-8 text-lg leading-relaxed text-muted-foreground md:text-xl">
+                  Websites, software and marketing from one team that plans,
+                  designs, builds and measures. Every project is judged by what
+                  it does for your business.
                 </p>
-              </motion.div>
-            </ParallaxSection>
+                <Button asChild size="lg">
+                  <Link to="/contact" className="gap-2">
+                    Start a project
+                    <ArrowRight className="h-4 w-4" aria-hidden />
+                  </Link>
+                </Button>
+              </div>
+              <SpinBadge />
+            </div>
 
-            <ParallaxSection speed={0.15}>
-              <motion.div
-                initial={{ opacity: 0, x: 30 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className="relative h-full p-8 md:p-12 rounded-3xl bg-gradient-to-br from-accent to-accent/80 text-accent-foreground overflow-hidden"
-              >
-                <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-foreground/10 rounded-full blur-3xl" />
-                <h2 className="text-3xl md:text-4xl font-bold mb-4 relative z-10">Our Vision</h2>
-                <p className="text-lg text-accent-foreground/90 relative z-10 leading-relaxed">
-           Our vision is to become India’s most reliable digital growth partner —
-trusted by businesses for delivering strategy-led design, robust
-technology, and sustainable growth outcomes across industries.
-
-                </p>
-              </motion.div>
-            </ParallaxSection>
+            <dl className="mt-16 grid grid-cols-3 gap-4 border-t border-border pt-8">
+              {keyFacts.map((f) => (
+                <div key={f.label}>
+                  <dd className="text-4xl font-black tracking-tight tabular-nums md:text-6xl">{f.value}</dd>
+                  <dt className="mt-1 text-sm text-muted-foreground md:text-base">{f.label}</dt>
+                </div>
+              ))}
+            </dl>
           </div>
         </section>
 
-<DepthZoomReveal />
-       {/* Values */}
-       <ValuesPop />
+        <Marquee />
 
-        {/* Timeline */}
-<section className="container mx-auto px-4 mb-16">
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    className="text-center mb-4"
-  >
-    {/* <span className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-2"> */}
-   
-    <h2 className="text-3xl md:text-5xl font-extrabold font-bold mb-2">
-      From Startup to Industry Leader
-    </h2>
-    <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-      From a small founding team to a nationally recognized technology and growth consultancy,
-      our journey reflects consistent delivery, long-term client relationships,
-      and continuous evolution.
-    </p>
-  </motion.div>
+        <Statement />
 
-  {/* Desktop Timeline */}
-  <div className="max-w-4xl mx-auto hidden md:block">
-    {timelineEvents.map((event, index) => (
-      <TimelineItem key={event.year} event={event} index={index} />
-    ))}
-  </div>
+        <Capabilities />
 
-  {/* Mobile Timeline */}
-  <div className="md:hidden space-y-1.5">
-    {timelineEvents.map((event, index) => (
-      <motion.div
-        key={event.year}
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: index * 0.05 }}
-        className="p-4 rounded-2xl bg-card border border-border"
-      >
-        <span className="text-2xl font-extrabold text-gradient">{event.year}</span>
-        <h3 className="text-lg font-bold mt-1 mb-1">{event.title}</h3>
-        <p className="text-muted-foreground mb-1.5">{event.description}</p>
-        <span className="inline-block px-3 py-1 rounded-full bg-accent/10 text-accent text-sm font-medium">
-          {event.highlight}
-        </span>
-      </motion.div>
-    ))}
-  </div>
-</section>
+        <DepthZoomReveal />
 
-        {/* Team Section */}
-        <section className="container mx-auto px-4 mb-24">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            
-            <h2 className="text-3xl md:text-5xl font-extrabold font-bold mb-4">The Team Behind Your Success</h2>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              A diverse team of experts passionate about driving business growth.
-            </p>
-          </motion.div>
+        <ValuesPop />
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {teamMembers.map((member, index) => (
-              <TeamCard key={member.name} member={member} index={index} />
-            ))}
+        {/* Story */}
+        <section id="story" className="scroll-mt-24 pt-24">
+          <div className="container mx-auto px-4">
+            <h2 className="max-w-3xl text-3xl font-extrabold tracking-tight md:text-5xl">
+              Five years of growing with our clients
+            </h2>
+            <p className="mt-4 max-w-xl text-lg text-muted-foreground">Keep scrolling to move through our story.</p>
           </div>
+          <ScrollTimeline />
         </section>
+
+        {SHOW_TEAM && (
+          <section className="container mx-auto px-4 pb-24">
+            <h2 className="mb-12 text-3xl font-extrabold tracking-tight md:text-5xl">The people you'll work with</h2>
+            <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+              {teamMembers.map((m) => (
+                <TeamCard key={m.name} member={m} />
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* CTA */}
-        <section className="container mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative rounded-3xl overflow-hidden"
-          >
-            <div className="absolute inset-0 gradient-premium" />
-            <div className="relative px-8 py-16 md:px-16 md:py-20 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold text-primary-foreground mb-4">
-                Ready to Join Success Stories?
-              </h2>
-              <p className="text-lg text-primary-foreground/80 max-w-2xl mx-auto mb-8">
-                Let's discuss how we can help transform your business.
-              </p>
-              <Button asChild variant="secondary" size="xl">
+        <section className="container mx-auto px-4 pb-24">
+          <div className="relative overflow-hidden rounded-[2.5rem] bg-primary px-8 py-16 text-primary-foreground md:px-16 md:py-24">
+            <div aria-hidden className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-primary-foreground/10" />
+            <div aria-hidden className="absolute -bottom-24 right-40 h-56 w-56 rounded-full bg-primary-foreground/10" />
+            <h2 className="relative max-w-4xl text-4xl font-black leading-[1.02] tracking-tighter md:text-7xl">
+              Let's build something people remember.
+            </h2>
+            <div className="relative mt-10 flex flex-wrap items-center gap-6">
+              <Button asChild variant="secondary" size="lg">
                 <Link to="/contact" className="gap-2">
-                  Get in Touch
-                  <ArrowRight className="w-5 h-5" />
+                  Talk to our team
+                  <ArrowRight className="h-5 w-5" aria-hidden />
                 </Link>
               </Button>
+              <p className="text-primary-foreground/80">Tell us your goal and we'll reply with ideas and next steps.</p>
             </div>
-          </motion.div>
+          </div>
         </section>
       </main>
 
