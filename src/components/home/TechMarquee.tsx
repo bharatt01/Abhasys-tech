@@ -1,5 +1,6 @@
 import { motion, useInView, LazyMotion, domAnimation } from "framer-motion";
 import { useRef, memo } from "react";
+import Marquee from "./Marquee";
 
 const rowOne = [
   { name: "React", slug: "react" },
@@ -42,10 +43,10 @@ const TechPill = memo(({ name, slug }: { name: string; slug: string }) => (
     </span>
   </div>
 ));
-
+TechPill.displayName = "TechPill";
 
 /* ===========================
-   Marquee Row
+   Marquee Row (CSS animation, same speed as before)
 =========================== */
 const MarqueeRow = memo(
   ({
@@ -57,7 +58,7 @@ const MarqueeRow = memo(
     direction: "left" | "right";
     duration: number;
   }) => {
-    const loopItems = [...items, ...items, ...items, ...items];
+    const half = [...items, ...items];
 
     return (
       <div className="relative overflow-hidden w-full">
@@ -65,24 +66,16 @@ const MarqueeRow = memo(
         <div className="pointer-events-none absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-white to-transparent z-10" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-white to-transparent z-10" />
 
-        <motion.div
-          className="flex w-max py-2"
-          animate={{
-            x: direction === "left" ? ["0%", "-50%"] : ["-50%", "0%"],
-          }}
-          transition={{
-            duration,
-            repeat: Infinity,
-            ease: "linear",
-          }}
-        >
-          {loopItems.map((item, i) => (
-            <TechPill key={`${item.slug}-${i}`} name={item.name} slug={item.slug} />
-          ))}
-        </motion.div>
+        <Marquee duration={duration} reverse={direction === "right"} className="py-2">
+          {[0, 1].map((h) =>
+            half.map((item, i) => (
+              <TechPill key={`${h}-${item.slug}-${i}`} name={item.name} slug={item.slug} />
+            )),
+          )}
+        </Marquee>
       </div>
     );
-  }
+  },
 );
 MarqueeRow.displayName = "MarqueeRow";
 
@@ -99,7 +92,6 @@ const TechMarquee = () => {
         {/* Header */}
         <div ref={headerRef} className="relative px-4 pt-16 pb-4 md:pt-24 md:pb-6">
           <div className="max-w-5xl mx-auto text-center">
-           
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-black text-indigo-600 leading-[0.95] tracking-tighter">
               <motion.span
                 className="block"
@@ -120,9 +112,6 @@ const TechMarquee = () => {
             </h2>
           </div>
         </div>
-
-        {/* Thick Divider */}
-      
 
         {/* Marquee Rows */}
         <div className="py-10 md:py-10 flex flex-col gap-2 md:gap-4">

@@ -3,11 +3,9 @@ import {
   Mail,
   Phone,
   MapPin,
-  Linkedin,
-  Twitter,
+  Facebook,
   Instagram,
 } from "lucide-react";
-
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
@@ -34,26 +32,27 @@ const Footer = () => {
             </p>
 
             {/* Social Links (NO <a>) */}
-            {/* <div className="flex gap-3">
-              <Link
-                to="/"
-                className="w-10 h-10 rounded-xl bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"
-              >
-                <Linkedin className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/"
-                className="w-10 h-10 rounded-xl bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"
-              >
-                <Twitter className="w-4 h-4" />
-              </Link>
-              <Link
-                to="/"
-                className="w-10 h-10 rounded-xl bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"
-              >
-                <Instagram className="w-4 h-4" />
-              </Link>
-            </div> */}
+          {/* Social Links */}{/* Social Links */}
+<div className="flex gap-3">
+  <a
+    href="https://www.facebook.com/people/Abhasys/61588824197041/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Facebook"
+    className="w-10 h-10 rounded-xl bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"
+  >
+    <Facebook className="w-4 h-4" />
+  </a>
+  <a
+    href="https://www.instagram.com/theabhasys/"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Instagram"
+    className="w-10 h-10 rounded-xl bg-primary-foreground/10 flex items-center justify-center hover:bg-accent transition-colors"
+  >
+    <Instagram className="w-4 h-4" />
+  </a>
+</div>
           </div>
 
           {/* Quick Links */}

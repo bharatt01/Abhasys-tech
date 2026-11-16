@@ -1,72 +1,41 @@
-import { motion, useInView } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { animate, motion, useInView, useReducedMotion } from "framer-motion";
+import { useRef, useEffect } from "react";
 import { TrendingUp, Users, Award, Briefcase } from "lucide-react";
 
 const stats = [
-  {
-    icon: Briefcase,
-    value: 50,
-    suffix: "+",
-    label: "Projects Delivered",
-  },
-  {
-    icon: TrendingUp,
-    value: 10,
-    suffix: "x",
-    label: "Average ROI",
-  },
-  {
-    icon: Users,
-    value: 20,
-    suffix: "+",
-    label: "Happy Clients",
-  },
-  {
-    icon: Award,
-    value: 5,
-    suffix: "+",
-    label: "Industry Awards",
-  },
+  { icon: Briefcase, value: 50, suffix: "+", label: "Projects Delivered" },
+  { icon: TrendingUp, value: 10, suffix: "x", label: "Average ROI" },
+  { icon: Users, value: 20, suffix: "+", label: "Happy Clients" },
+  { icon: Award, value: 5, suffix: "+", label: "Industry Awards" },
 ];
 
-const AnimatedCounter = ({
-  value,
-  suffix,
-}: {
-  value: number;
-  suffix: string;
-}) => {
-  const [count, setCount] = useState(0);
+/* Writes straight to the DOM node, so counting up causes zero React re-renders
+   (before: 60 setState calls per counter). */
+const AnimatedCounter = ({ value, suffix }: { value: number; suffix: string }) => {
   const ref = useRef<HTMLSpanElement>(null);
   const isInView = useInView(ref, { once: true });
+  const reduce = useReducedMotion();
 
   useEffect(() => {
-    if (isInView) {
-      const duration = 2000;
-      const steps = 60;
-      const increment = value / steps;
-      let current = 0;
+    const node = ref.current;
+    if (!isInView || !node) return;
 
-      const timer = setInterval(() => {
-        current += increment;
-        if (current >= value) {
-          setCount(value);
-          clearInterval(timer);
-        } else {
-          setCount(Math.floor(current));
-        }
-      }, duration / steps);
-
-      return () => clearInterval(timer);
+    if (reduce) {
+      node.textContent = `${value}${suffix}`;
+      return;
     }
-  }, [isInView, value]);
 
-  return (
-    <span ref={ref}>
-      {count}
-      {suffix}
-    </span>
-  );
+    const controls = animate(0, value, {
+      duration: 2,
+      ease: "easeOut",
+      onUpdate: (v) => {
+        node.textContent = `${Math.round(v)}${suffix}`;
+      },
+    });
+    return () => controls.stop();
+  }, [isInView, value, suffix, reduce]);
+
+  return <span ref={ref}>0{suffix}</span>;
 };
 
 const Stats = () => {
@@ -93,9 +62,7 @@ const Stats = () => {
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
 
-              <p className="text-muted-foreground font-medium">
-                {stat.label}
-              </p>
+              <p className="text-muted-foreground font-medium">{stat.label}</p>
             </motion.div>
           ))}
         </div>
