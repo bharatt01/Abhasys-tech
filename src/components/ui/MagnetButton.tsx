@@ -1,5 +1,5 @@
-import { useRef, useState, ReactNode } from "react";
-import { motion } from "framer-motion";
+import { useRef, ReactNode } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 
 interface MagnetButtonProps {
   children: ReactNode;
@@ -7,32 +7,42 @@ interface MagnetButtonProps {
   strength?: number;
 }
 
+/* Motion values instead of useState: mouse movement no longer re-renders the component,
+   and the element's rect is measured once on enter instead of on every mouse move. */
 const MagnetButton = ({ children, className = "", strength = 0.3 }: MagnetButtonProps) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const rect = useRef<DOMRect | null>(null);
 
-  const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
-    
-    const { clientX, clientY } = e;
-    const { left, top, width, height } = ref.current.getBoundingClientRect();
-    const x = (clientX - (left + width / 2)) * strength;
-    const y = (clientY - (top + height / 2)) * strength;
-    
-    setPosition({ x, y });
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const springConfig = { stiffness: 350, damping: 15, mass: 0.5 };
+  const sx = useSpring(x, springConfig);
+  const sy = useSpring(y, springConfig);
+
+  const handleEnter = () => {
+    rect.current = ref.current?.getBoundingClientRect() ?? null;
   };
 
-  const handleMouseLeave = () => {
-    setPosition({ x: 0, y: 0 });
+  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const r = rect.current;
+    if (!r) return;
+    x.set((e.clientX - (r.left + r.width / 2)) * strength);
+    y.set((e.clientY - (r.top + r.height / 2)) * strength);
+  };
+
+  const handleLeave = () => {
+    rect.current = null;
+    x.set(0);
+    y.set(0);
   };
 
   return (
     <motion.div
       ref={ref}
-      onMouseMove={handleMouse}
-      onMouseLeave={handleMouseLeave}
-      animate={{ x: position.x, y: position.y }}
-      transition={{ type: "spring", stiffness: 350, damping: 15, mass: 0.5 }}
+      onMouseEnter={handleEnter}
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      style={{ x: sx, y: sy }}
       className={className}
     >
       {children}

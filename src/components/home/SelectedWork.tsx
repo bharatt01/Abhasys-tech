@@ -4,23 +4,32 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
+/* width/height = the real pixel size of each image file. The browser uses them to
+   reserve space before the image loads, which stops the page jumping while you scroll.
+   The values below are placeholders: replace them with your actual image dimensions. */
 const projects = [
   {
     title: "Customer Benefits Platform",
     category: "Product Website + Dashboard",
     image: "/images/customerdelight.png",
+    width: 1200,
+    height: 900,
     link: "/our-work",
   },
   {
     title: "Global Export Brand",
     category: "B2B Website + Lead System",
     image: "/images/vmidas.png",
+    width: 1200,
+    height: 900,
     link: "/work/project-2",
   },
   {
     title: "Medical Mission",
     category: "EdTech Platform",
     image: "/images/medicalmission.png",
+    width: 1200,
+    height: 900,
     link: "/work/project-3",
   },
 ];
@@ -30,27 +39,26 @@ const SelectedWork = () => {
   const isInView = useInView(ref, { once: true });
 
   return (
-   <section className="pb-6 bg-white">
-
+    <section className="pb-6 bg-white">
       <div ref={ref} className="container mx-auto px-4">
         {/* Header */}
         <motion.div
-  initial={{ opacity: 0, y: 30 }}
-  animate={isInView ? { opacity: 1, y: 0 } : {}}
-  transition={{ duration: 0.6 }}
-  className="max-w-3xl mx-auto mb-16 text-center"
->
-  <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-black">
-    Projects That
-    <br />
-    Drove Real Growth
-  </h2>
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          className="max-w-3xl mx-auto mb-16 text-center"
+        >
+          <h2 className="text-3xl md:text-5xl font-extrabold leading-tight text-black">
+            Projects That
+            <br />
+            Drove Real Growth
+          </h2>
 
-  <p className="mt-5 text-lg text-neutral-600 max-w-xl mx-auto">
-    A curated selection of projects showcasing how we design, build,
-    and scale digital products.
-  </p>
-</motion.div>
+          <p className="mt-5 text-lg text-neutral-600 max-w-xl mx-auto">
+            A curated selection of projects showcasing how we design, build,
+            and scale digital products.
+          </p>
+        </motion.div>
 
         {/* Projects Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
@@ -69,7 +77,11 @@ const SelectedWork = () => {
                     <img
                       src={project.image}
                       alt={project.title}
+                      width={project.width}
+                      height={project.height}
                       loading="lazy"
+                      decoding="async"
+                      sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       className="w-full h-auto max-h-[440px] mx-auto object-contain transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
@@ -84,8 +96,6 @@ const SelectedWork = () => {
                     <h3 className="mt-1 text-2xl font-bold text-black">
                       {project.title}
                     </h3>
-
-                  
                   </div>
                 </div>
               </Link>
